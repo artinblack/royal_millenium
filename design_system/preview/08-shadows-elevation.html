@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Shadows & Elevation — Royal Millennium</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Montserrat', sans-serif; background: #f5f0e8; padding: 28px; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #9e8668; margin-bottom: 16px; }
+  .row { display: flex; gap: 20px; flex-wrap: wrap; }
+  .elev { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+  .card { width: 110px; height: 80px; background: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+  .elev-label { font-size: 10px; font-family: monospace; color: #5c5148; text-align: center; }
+  .elev-val { font-size: 9px; color: #9e8668; text-align: center; max-width: 110px; }
+</style>
+</head>
+<body>
+  <div class="section-label">Shadow System</div>
+  <div class="row">
+    <div class="elev">
+      <div class="card" style="box-shadow: none; border: 1px solid #ddd0be;"></div>
+      <div class="elev-label">Flat</div>
+      <div class="elev-val">No shadow</div>
+    </div>
+    <div class="elev">
+      <div class="card" style="box-shadow: 0 1px 3px rgba(42,36,32,0.10);"></div>
+      <div class="elev-label">--shadow-sm</div>
+      <div class="elev-val">0 1px 3px · 10%</div>
+    </div>
+    <div class="elev">
+      <div class="card" style="box-shadow: 0 4px 16px rgba(42,36,32,0.12);"></div>
+      <div class="elev-label">--shadow-md</div>
+      <div class="elev-val">0 4px 16px · 12%</div>
+    </div>
+    <div class="elev">
+      <div class="card" style="box-shadow: 0 8px 32px rgba(42,36,32,0.16);"></div>
+      <div class="elev-label">--shadow-lg</div>
+      <div class="elev-val">0 8px 32px · 16%</div>
+    </div>
+    <div class="elev">
+      <div class="card" style="box-shadow: 0 4px 20px rgba(201,168,76,0.30); border-top: 2px solid #c9a84c;"></div>
+      <div class="elev-label">--shadow-gold</div>
+      <div class="elev-val">0 4px 20px gold · 30%</div>
+    </div>
+  </div>
+</body>
+</html>

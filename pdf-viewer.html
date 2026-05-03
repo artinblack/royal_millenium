@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#333; }
+  canvas { display:block; margin:0 auto 20px; }
+</style>
+</head>
+<body>
+<div id="pages"></div>
+<script src="node_modules/pdfjs-dist/build/pdf.mjs" type="module"></script>
+<script type="module">
+  import * as pdfjsLib from './node_modules/pdfjs-dist/build/pdf.mjs';
+  pdfjsLib.GlobalWorkerOptions.workerSrc = './node_modules/pdfjs-dist/build/pdf.worker.mjs';
+
+  const response = await fetch('/proj_assets/RM%20final%20.pdf');
+  const arrayBuffer = await response.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
+
+  window.__totalPages = pdf.numPages;
+  window.__renderedPages = 0;
+
+  const container = document.getElementById('pages');
+
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const viewport = page.getViewport({ scale: 1.8 });
+    const canvas = document.createElement('canvas');
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    canvas.id = `page-${i}`;
+    container.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    await page.render({ canvasContext: ctx, viewport }).promise;
+    window.__renderedPages++;
+  }
+  window.__done = true;
+</script>
+</body>
+</html>

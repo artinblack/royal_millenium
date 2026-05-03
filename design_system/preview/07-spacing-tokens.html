@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Spacing & Radius — Royal Millennium</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Montserrat', sans-serif; background: #f5f0e8; padding: 24px; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #9e8668; margin-bottom: 12px; }
+  .spacing-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .spacing-bar { background: #c9a84c; height: 16px; border-radius: 2px; }
+  .spacing-label { font-size: 10px; font-family: monospace; color: #5c5148; min-width: 90px; }
+  .spacing-val { font-size: 10px; color: #9e8668; }
+  .divider { height: 1px; background: #ddd0be; margin: 16px 0; }
+  .radius-row { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+  .radius-box { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .radius-demo { width: 52px; height: 52px; background: #c9a84c; }
+  .radius-meta { font-size: 9px; font-family: monospace; color: #5c5148; text-align: center; }
+</style>
+</head>
+<body>
+  <div class="section-label">Spacing Scale</div>
+  <div class="spacing-row"><div class="spacing-label">--space-1 · 4px</div><div class="spacing-bar" style="width:4px"></div></div>
+  <div class="spacing-row"><div class="spacing-label">--space-2 · 8px</div><div class="spacing-bar" style="width:8px"></div></div>
+  <div class="spacing-row"><div class="spacing-label">--space-3 · 12px</div><div class="spacing-bar" style="width:12px"></div></div>
+  <div class="spacing-row"><div class="spacing-label">--space-4 · 16px</div><div class="spacing-bar" style="width:16px"></div></div>
+  <div class="spacing-row"><div class="spacing-label">--space-6 · 24px</div><div class="spacing-bar" style="width:24px"></div></div>
+  <div class="spacing-row"><div class="spacing-label">--space-8 · 32px</div><div class="spacing-bar" style="width:32px"></div></div>
+  <div class="spacing-row"><div class="spacing-label">--space-10 · 40px</div><div class="spacing-bar" style="width:40px"></div></div>
+  <div class="spacing-row"><div class="spacing-label">--space-12 · 48px</div><div class="spacing-bar" style="width:48px"></div></div>
+  <div class="spacing-row"><div class="spacing-label">--space-16 · 64px</div><div class="spacing-bar" style="width:64px"></div></div>
+  <div class="spacing-row"><div class="spacing-label">--space-20 · 80px</div><div class="spacing-bar" style="width:80px"></div></div>
+  <div class="spacing-row"><div class="spacing-label">--space-24 · 96px</div><div class="spacing-bar" style="width:96px"></div></div>
+
+  <div class="divider"></div>
+
+  <div class="section-label">Border Radius</div>
+  <div class="radius-row">
+    <div class="radius-box"><div class="radius-demo" style="border-radius:4px"></div><div class="radius-meta">--radius-sm<br>4px</div></div>
+    <div class="radius-box"><div class="radius-demo" style="border-radius:8px"></div><div class="radius-meta">--radius-md<br>8px</div></div>
+    <div class="radius-box"><div class="radius-demo" style="border-radius:12px"></div><div class="radius-meta">--radius-lg<br>12px</div></div>
+    <div class="radius-box"><div class="radius-demo" style="border-radius:16px"></div><div class="radius-meta">--radius-xl<br>16px</div></div>
+    <div class="radius-box"><div class="radius-demo" style="border-radius:24px"></div><div class="radius-meta">--radius-2xl<br>24px</div></div>
+    <div class="radius-box"><div class="radius-demo" style="border-radius:999px"></div><div class="radius-meta">--radius-pill<br>999px</div></div>
+    <div class="radius-box">
+      <div style="width:52px; height:52px; background:#c9a84c; border-radius: 16px 16px 0 0;"></div>
+      <div class="radius-meta">--radius-arch<br>top only</div>
+    </div>
+  </div>
+</body>
+</html>

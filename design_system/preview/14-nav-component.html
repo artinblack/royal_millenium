@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Navigation — Royal Millennium</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Montserrat', sans-serif; background: #f5f0e8; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #9e8668; padding: 12px 16px 6px; }
+
+  /* Nav Dark */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; height: 68px;
+  }
+  .nav-dark { background: #3a3530; }
+  .nav-light { background: #ffffff; box-shadow: 0 2px 12px rgba(42,36,32,0.08); }
+  .nav-transparent { background: transparent; position: relative; }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  .nav-logo-dark { color: #ffffff; }
+  .nav-logo-dark span { color: #c9a84c; }
+  .nav-logo-light { color: #2a2420; }
+  .nav-logo-light span { color: #c9a84c; }
+  .nav-logo-sub { font-size: 9px; letter-spacing: 0.2em; display: block; font-family: 'Montserrat', sans-serif; font-weight: 700; }
+
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-link { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; }
+  .nav-link-dark { color: rgba(255,255,255,0.7); }
+  .nav-link-dark:hover, .nav-link-dark.active { color: #c9a84c; }
+  .nav-link-light { color: #5c5148; }
+  .nav-link-light:hover, .nav-link-light.active { color: #c9a84c; }
+
+  .nav-cta {
+    padding: 10px 22px; border-radius: 6px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; border: none;
+  }
+  .nav-cta-gold { background: #c9a84c; color: #1e1a17; }
+  .nav-cta-outline { background: transparent; border: 1.5px solid #c9a84c; color: #c9a84c; }
+
+  .divider { height: 1px; background: #ddd0be; margin: 0; }
+  .bg-label { padding: 6px 16px; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #9e8668; background: #f5f0e8; }
+</style>
+</head>
+<body>
+  <div class="bg-label">Dark (Primary)</div>
+  <nav class="nav nav-dark">
+    <div class="nav-logo nav-logo-dark">
+      <span class="nav-logo-sub">Royal</span>
+      <span>Millennium</span>
+    </div>
+    <ul class="nav-links">
+      <li><a class="nav-link nav-link-dark active" href="#">Overview</a></li>
+      <li><a class="nav-link nav-link-dark" href="#">Features</a></li>
+      <li><a class="nav-link nav-link-dark" href="#">Location</a></li>
+      <li><a class="nav-link nav-link-dark" href="#">Gallery</a></li>
+    </ul>
+    <button class="nav-cta nav-cta-gold">Enquire Now</button>
+  </nav>
+
+  <div class="divider"></div>
+  <div class="bg-label">Light (Scrolled)</div>
+  <nav class="nav nav-light">
+    <div class="nav-logo nav-logo-light">
+      <span class="nav-logo-sub">Royal</span>
+      <span>Millennium</span>
+    </div>
+    <ul class="nav-links">
+      <li><a class="nav-link nav-link-light active" href="#">Overview</a></li>
+      <li><a class="nav-link nav-link-light" href="#">Features</a></li>
+      <li><a class="nav-link nav-link-light" href="#">Location</a></li>
+      <li><a class="nav-link nav-link-light" href="#">Gallery</a></li>
+    </ul>
+    <button class="nav-cta nav-cta-outline">Enquire Now</button>
+  </nav>
+</body>
+</html>

@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Royal Millennium — Connect. Create. Succeed.</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          gold: {
+            DEFAULT: '#C9A96E',
+            light: '#DFC08A',
+            pale: '#F0E4CC',
+            dark: '#9E7C45',
+          },
+          ebony: {
+            DEFAULT: '#2C2318',
+            light: '#3D3124',
+            mid: '#534430',
+          },
+          cream: {
+            DEFAULT: '#F8F2E6',
+            dark: '#EDE4D0',
+          },
+          stone: '#8C7B65',
+        },
+        fontFamily: {
+          display: ['Cormorant Garamond', 'Georgia', 'serif'],
+          body: ['Jost', 'sans-serif'],
+        },
+        letterSpacing: {
+          display: '-0.03em',
+          caps: '0.18em',
+          wide: '0.08em',
+        },
+        lineHeight: {
+          loose: '1.85',
+        },
+      }
+    }
+  };
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Jost', sans-serif;
+    background-color: #F8F2E6;
+    color: #2C2318;
+    overflow-x: hidden;
+  }
+
+  /* Grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.45s; }
+  .reveal-delay-5 { transition-delay: 0.6s; }
+
+  /* Nav */
+  .nav-link {
+    position: relative;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #F8F2E6;
+    transition: color 0.3s;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: #C9A96E;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-link:hover { color: #C9A96E; }
+  .nav-link:hover::after { width: 100%; }
+
+  .nav-scrolled { background: rgba(44, 35, 24, 0.97) !important; backdrop-filter: blur(12px); }
+
+  /* Hero */
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    background-image: url('proj_assets/IMG-20260503-WA0020.jpg');
+    background-size: cover;
+    background-position: center 40%;
+    transform: scale(1.05);
+    animation: heroZoom 12s ease-out forwards;
+  }
+  @keyframes heroZoom {
+    from { transform: scale(1.05); }
+    to   { transform: scale(1.0); }
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(20, 14, 6, 0.35) 0%,
+      rgba(20, 14, 6, 0.2) 40%,
+      rgba(20, 14, 6, 0.75) 100%
+    );
+  }
+
+  /* Gold rule */
+  .gold-rule {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #C9A96E, transparent);
+  }
+  .gold-rule-lg {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #C9A96E, transparent);
+  }
+
+  /* Section label */
+  .section-label {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #C9A96E;
+  }
+
+  /* Marquee */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 28s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* Image gallery */
+  .gallery-img {
+    overflow: hidden;
+    position: relative;
+  }
+  .gallery-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .gallery-img:hover img { transform: scale(1.04); }
+  .gallery-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(44,35,24,0.55) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Feature card */
+  .feature-card {
+    border: 1px solid rgba(201, 169, 110, 0.2);
+    transition: border-color 0.3s, background 0.3s, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .feature-card:hover {
+    border-color: rgba(201, 169, 110, 0.55);
+    background: rgba(201, 169, 110, 0.06);
+    transform: translateY(-3px);
+  }
+
+  /* CTA button */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #C9A96E;
+    color: #2C2318;
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    transition: background 0.3s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+    box-shadow: 0 4px 24px rgba(201, 169, 110, 0.25);
+  }
+  .btn-primary:hover {
+    background: #DFC08A;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(201, 169, 110, 0.4);
+  }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(201, 169, 110, 0.6);
+    color: #C9A96E;
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 15px 36px;
+    transition: background 0.3s, border-color 0.3s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-outline:hover {
+    background: rgba(201, 169, 110, 0.1);
+    border-color: #C9A96E;
+    transform: translateY(-2px);
+  }
+
+  /* Stat number */
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1;
+    color: #C9A96E;
+    letter-spacing: -0.02em;
+  }
+
+  /* dark section */
+  .dark-section {
+    background-color: #2C2318;
+    position: relative;
+  }
+  .dark-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(201,169,110,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(201,169,110,0.04) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Contact input */
+  .form-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(201, 169, 110, 0.35);
+    color: #F8F2E6;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    padding: 12px 0;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .form-input::placeholder { color: rgba(248,242,230,0.35); font-size: 0.85rem; letter-spacing: 0.04em; }
+  .form-input:focus { border-color: #C9A96E; }
+
+  /* Vertical text */
+  .vert-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+  }
+
+  /* Divider ornament */
+  .ornament::before,
+  .ornament::after {
+    content: '—';
+    margin: 0 12px;
+    color: #C9A96E;
+    opacity: 0.6;
+  }
+
+  /* Type card */
+  .type-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .type-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: brightness(0.75);
+  }
+  .type-card:hover img { transform: scale(1.06); filter: brightness(0.9); }
+  .type-card-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 32px;
+    background: linear-gradient(to top, rgba(20,14,6,0.88) 0%, transparent 65%);
+    transition: background 0.4s;
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, rgba(201,169,110,0.8), transparent);
+    animation: scrollPulse 2.5s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(0.7); transform-origin: top; }
+    50%       { opacity: 1; transform: scaleY(1); transform-origin: top; }
+  }
+
+  /* Accordion */
+  details summary { list-style: none; cursor: pointer; }
+  details summary::-webkit-details-marker { display: none; }
+  details[open] .accord-icon { transform: rotate(45deg); }
+  .accord-icon { transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+
+  /* Mobile menu */
+  #mobile-menu { transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s; }
+  #mobile-menu.hidden { transform: translateY(-16px); opacity: 0; pointer-events: none; }
+  #mobile-menu:not(.hidden) { transform: translateY(0); opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ NAVIGATION ═══════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-5 px-8 lg:px-16 flex items-center justify-between" style="background: linear-gradient(to bottom, rgba(20,14,6,0.6), transparent);">
+  <a href="#" class="flex flex-col leading-none">
+    <span style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.25rem; color:#F8F2E6; letter-spacing:0.05em;">ROYAL</span>
+    <span style="font-family:'Cormorant Garamond',serif; font-weight:300; font-size:0.9rem; color:#C9A96E; letter-spacing:0.22em; text-transform:uppercase;">Millennium</span>
+  </a>
+
+  <div class="hidden lg:flex items-center gap-10">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#properties" class="nav-link">Properties</a>
+    <a href="#floorplans" class="nav-link">Floor Plans</a>
+    <a href="#features" class="nav-link">Features</a>
+    <a href="#location" class="nav-link">Location</a>
+    <a href="#invest" class="nav-link">Invest</a>
+  </div>
+
+  <a href="#contact" class="hidden lg:inline-flex btn-primary" style="padding:12px 28px; font-size:0.68rem;">
+    Enquire Now
+  </a>
+
+  <button id="menu-toggle" class="lg:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
+    <span class="block w-6 h-px bg-cream transition-all"></span>
+    <span class="block w-6 h-px bg-cream transition-all"></span>
+    <span class="block w-4 h-px bg-gold transition-all"></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" class="hidden fixed top-0 left-0 right-0 z-40 pt-24 pb-8 px-8" style="background: rgba(44,35,24,0.98); backdrop-filter:blur(16px);">
+  <div class="flex flex-col gap-6">
+    <a href="#about" class="nav-link text-base" onclick="closeMobile()">About</a>
+    <a href="#properties" class="nav-link text-base" onclick="closeMobile()">Properties</a>
+    <a href="#features" class="nav-link text-base" onclick="closeMobile()">Features</a>
+    <a href="#location" class="nav-link text-base" onclick="closeMobile()">Location</a>
+    <a href="#invest" class="nav-link text-base" onclick="closeMobile()">Invest</a>
+    <a href="#contact" class="btn-primary mt-4 w-fit" onclick="closeMobile()">Enquire Now</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<section id="hero" class="relative w-full overflow-hidden" style="height: 100svh; min-height: 600px;">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+
+  <!-- Side label -->
+  <div class="absolute left-8 bottom-32 hidden lg:flex flex-col items-center gap-4" style="z-index:2;">
+    <div class="scroll-indicator"></div>
+    <span class="vert-text section-label" style="color: rgba(201,169,110,0.7); font-size:0.6rem;">Scroll to explore</span>
+  </div>
+
+  <!-- Hero content -->
+  <div class="absolute inset-0 flex flex-col justify-end pb-20 px-8 lg:px-20" style="z-index:2;">
+    <div class="max-w-5xl">
+      <p class="section-label mb-5" style="animation: fadeUp 0.8s 0.2s both;">
+        <span class="ornament" style="font-size:0.6rem; letter-spacing:0.2em;">Airport Road · Gandhidham · Gujarat</span>
+      </p>
+      <h1 style="font-family:'Cormorant Garamond',serif; font-weight:300; color:#F8F2E6; line-height:0.92; letter-spacing:-0.03em; font-size:clamp(3.5rem,9vw,8rem); animation: fadeUp 0.9s 0.35s both;">
+        Redefine<br/>
+        <em style="color:#C9A96E; font-style:italic;">Royalty.</em>
+      </h1>
+      <p style="font-family:'Jost',sans-serif; font-weight:300; color:rgba(248,242,230,0.75); font-size:1.05rem; letter-spacing:0.04em; margin-top:1.5rem; max-width:520px; line-height:1.7; animation: fadeUp 1s 0.5s both;">
+        A landmark commercial destination on Airport Road — premium showrooms, executive offices & retail spaces, from ₹25 Lacs onwards.
+      </p>
+      <div class="flex flex-wrap items-center gap-4 mt-10" style="animation: fadeUp 1s 0.65s both;">
+        <a href="#properties" class="btn-primary">
+          Explore Spaces
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#contact" class="btn-outline" style="color:rgba(248,242,230,0.85); border-color:rgba(248,242,230,0.3);">
+          Request Brochure
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hashtag strip -->
+  <div class="absolute bottom-0 left-0 right-0 py-3 flex items-center gap-10 px-8" style="z-index:2; border-top:1px solid rgba(201,169,110,0.2); background:rgba(20,14,6,0.45); backdrop-filter:blur(4px);">
+    <span class="section-label" style="font-size:0.6rem;">#Landmark</span>
+    <span style="color:rgba(201,169,110,0.3);">·</span>
+    <span class="section-label" style="font-size:0.6rem;">#Luxury</span>
+    <span style="color:rgba(201,169,110,0.3);">·</span>
+    <span class="section-label" style="font-size:0.6rem;">#Royality</span>
+    <span style="color:rgba(201,169,110,0.3);">·</span>
+    <span class="section-label hidden sm:inline" style="font-size:0.6rem;">#FreeHold Commercial</span>
+    <div class="ml-auto hidden lg:flex items-center gap-2" style="color:rgba(248,242,230,0.5); font-size:0.68rem; letter-spacing:0.1em; font-family:'Jost',sans-serif;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      Airport Road, Gateway of Kandla Airport
+    </div>
+  </div>
+</section>
+
+<style>
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+</style>
+
+<!-- ═══════════════════════ MARQUEE STRIP ═══════════════════════ -->
+<div class="overflow-hidden py-4" style="background:#2C2318; border-top:1px solid rgba(201,169,110,0.15); border-bottom:1px solid rgba(201,169,110,0.15);">
+  <div class="marquee-track">
+    <span class="section-label px-8">Premium Retail Showrooms</span>
+    <span style="color:rgba(201,169,110,0.4);">✦</span>
+    <span class="section-label px-8">Executive Offices</span>
+    <span style="color:rgba(201,169,110,0.4);">✦</span>
+    <span class="section-label px-8">Work Units for Start-Ups</span>
+    <span style="color:rgba(201,169,110,0.4);">✦</span>
+    <span class="section-label px-8">Freehold Commercial</span>
+    <span style="color:rgba(201,169,110,0.4);">✦</span>
+    <span class="section-label px-8">25,000+ Sqft Parking</span>
+    <span style="color:rgba(201,169,110,0.4);">✦</span>
+    <span class="section-label px-8">300 Ft Arcade Front</span>
+    <span style="color:rgba(201,169,110,0.4);">✦</span>
+    <span class="section-label px-8">From ₹25 Lacs Onwards</span>
+    <span style="color:rgba(201,169,110,0.4);">✦</span>
+    <!-- duplicate for infinite scroll -->
+    <span class="section-label px-8">Premium Retail Showrooms</span>
+    <span style="color:rgba(201,169,110,0.4);">✦</span>
+    <span class="section-label px-8">Executive Offices</span>
+    <span style="color:rgba(201,169,110,0.4);">✦</span>
+    <span class="section-label px-8">Work Units for Start-Ups</span>
+    <span style="color:rgba(201,169,110,0.4);">✦</span>
+    <span class="section-label px-8">Freehold Commercial</span>
+    <span style="color:rgba(201,169,110,0.4);">✦</span>
+    <span class="section-label px-8">25,000+ Sqft Parking</span>
+    <span style="color:rgba(201,169,110,0.4);">✦</span>
+    <span class="section-label px-8">300 Ft Arcade Front</span>
+    <span style="color:rgba(201,169,110,0.4);">✦</span>
+    <span class="section-label px-8">From ₹25 Lacs Onwards</span>
+    <span style="color:rgba(201,169,110,0.4);">✦</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════ ABOUT / INTRO ═══════════════════════ -->
+<section id="about" class="py-28 px-8 lg:px-20">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+    <div>
+      <p class="section-label reveal">01 — Overview</p>
+      <div class="gold-rule-lg my-6 reveal reveal-delay-1"></div>
+      <h2 class="reveal reveal-delay-1" style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(2.4rem,4.5vw,4rem); line-height:1.1; letter-spacing:-0.025em; color:#2C2318;">
+        A New Commercial<br/>
+        <em style="color:#9E7C45;">Landmark is Rising</em>
+      </h2>
+      <p class="reveal reveal-delay-2 mt-8" style="font-family:'Jost',sans-serif; font-weight:300; font-size:1rem; line-height:1.85; color:#534430; max-width:480px;">
+        Royal Millennium stands at the gateway of Kandla Airport — a meticulously designed commercial complex that brings together premium retail showrooms, spacious offices, and curated work units under a single iconic structure on Airport Road, Gandhidham.
+      </p>
+      <p class="reveal reveal-delay-3 mt-5" style="font-family:'Jost',sans-serif; font-weight:300; font-size:1rem; line-height:1.85; color:#534430; max-width:480px;">
+        Its modern classic elevation and 300-foot arcade front make it the defining address for businesses that aspire to be seen, and for investors who recognise the value of a landmark location.
+      </p>
+      <div class="flex gap-8 mt-12 reveal reveal-delay-4">
+        <div>
+          <div class="stat-num">G+2</div>
+          <div style="font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:#8C7B65; margin-top:4px;">Floors</div>
+        </div>
+        <div style="width:1px; background: rgba(201,169,110,0.25);"></div>
+        <div>
+          <div class="stat-num">300<span style="font-size:1.5rem;">ft</span></div>
+          <div style="font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:#8C7B65; margin-top:4px;">Arcade Front</div>
+        </div>
+        <div style="width:1px; background: rgba(201,169,110,0.25);"></div>
+        <div>
+          <div class="stat-num">25K+</div>
+          <div style="font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:#8C7B65; margin-top:4px;">Sqft Parking</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image mosaic -->
+    <div class="grid grid-cols-2 gap-4 reveal reveal-delay-2">
+      <div class="gallery-img col-span-2" style="height:280px; border-radius:2px;">
+        <img src="proj_assets/IMG-20260503-WA0029.jpg" alt="Royal Millennium front elevation" />
+      </div>
+      <div class="gallery-img" style="height:200px; border-radius:2px;">
+        <img src="proj_assets/IMG-20260503-WA0030.jpg" alt="Royal Millennium side view" />
+      </div>
+      <div class="gallery-img" style="height:200px; border-radius:2px;">
+        <img src="proj_assets/IMG-20260503-WA0031.jpg" alt="Royal Millennium aerial view" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ PROPERTY TYPES ═══════════════════════ -->
+<section id="properties" class="py-24 px-8 lg:px-20" style="background:#EDE4D0;">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="section-label reveal">02 — Spaces</p>
+      <div class="gold-rule mx-auto my-5 reveal reveal-delay-1"></div>
+      <h2 class="reveal reveal-delay-1" style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(2rem,4vw,3.5rem); letter-spacing:-0.02em; color:#2C2318;">
+        Four Ways to Invest
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+      <!-- Showroom -->
+      <div class="type-card reveal reveal-delay-1" style="height:480px; border-radius:2px;">
+        <img src="proj_assets/IMG-20260503-WA0020.jpg" alt="Premium Retail Showrooms" />
+        <div class="type-card-content">
+          <span class="section-label mb-2">Ground Floor</span>
+          <h3 style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.75rem; color:#F8F2E6; line-height:1.1;">Premium<br/>Retail Showrooms</h3>
+          <p style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.82rem; color:rgba(248,242,230,0.7); margin-top:8px; line-height:1.6;">West-open frontage ideal for luxury brands & flagship stores.</p>
+          <div class="gold-rule mt-4"></div>
+        </div>
+      </div>
+
+      <!-- Shops -->
+      <div class="type-card reveal reveal-delay-2" style="height:480px; border-radius:2px;">
+        <img src="proj_assets/IMG-20260503-WA0029.jpg" alt="Executive Shops" />
+        <div class="type-card-content">
+          <span class="section-label mb-2">Ground Floor</span>
+          <h3 style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.75rem; color:#F8F2E6; line-height:1.1;">Executive<br/>Shops</h3>
+          <p style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.82rem; color:rgba(248,242,230,0.7); margin-top:8px; line-height:1.6;">Ideal for banks, clinics, salons, cafés & specialty retail.</p>
+          <div class="gold-rule mt-4"></div>
+        </div>
+      </div>
+
+      <!-- Offices -->
+      <div class="type-card reveal reveal-delay-3" style="height:480px; border-radius:2px;">
+        <img src="proj_assets/IMG-20260503-WA0030.jpg" alt="Spacious Offices" />
+        <div class="type-card-content">
+          <span class="section-label mb-2">Upper Floors</span>
+          <h3 style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.75rem; color:#F8F2E6; line-height:1.1;">Spacious<br/>Offices</h3>
+          <p style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.82rem; color:rgba(248,242,230,0.7); margin-top:8px; line-height:1.6;">Premium corporate offices with lift access & natural light.</p>
+          <div class="gold-rule mt-4"></div>
+        </div>
+      </div>
+
+      <!-- Work Units -->
+      <div class="type-card reveal reveal-delay-4" style="height:480px; border-radius:2px;">
+        <img src="proj_assets/IMG-20260503-WA0030.jpg" alt="Work Units" />
+        <div class="type-card-content">
+          <span class="section-label mb-2">Upper Floors</span>
+          <h3 style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.75rem; color:#F8F2E6; line-height:1.1;">Work Units<br/>for Start-Ups</h3>
+          <p style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.82rem; color:rgba(248,242,230,0.7); margin-top:8px; line-height:1.6;">Purpose-built compact units for entrepreneurs & early-stage ventures.</p>
+          <div class="gold-rule mt-4"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-12 reveal">
+      <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.5rem; color:#9E7C45;">Starting from ₹25 Lacs* · Flexible Payment Terms</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FLOOR PLANS ═══════════════════════ -->
+<section id="floorplans" class="py-24 px-8 lg:px-20" style="background:#F8F2E6;">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="section-label reveal">03 — Floor Plans</p>
+      <div class="gold-rule mx-auto my-5 reveal reveal-delay-1"></div>
+      <h2 class="reveal reveal-delay-1" style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(2rem,4vw,3.5rem); letter-spacing:-0.02em; color:#2C2318;">
+        Thoughtfully Laid Out,<br/><em style="color:#9E7C45;">Every Square Foot Counts</em>
+      </h2>
+      <p class="reveal reveal-delay-2 mt-5" style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.95rem; color:#534430; max-width:560px; margin-left:auto; margin-right:auto; line-height:1.8;">
+        Three floors, each purpose-designed — retail showrooms at grade, premium offices above, all connected by wide internal passages and lift access.
+      </p>
+    </div>
+
+    <!-- Floor tab switcher -->
+    <div class="flex justify-center gap-0 mb-10 reveal">
+      <button onclick="showFloor('ground')" id="tab-ground" class="floor-tab floor-tab-active">Ground Floor</button>
+      <button onclick="showFloor('first')" id="tab-first" class="floor-tab">First Floor</button>
+      <button onclick="showFloor('second')" id="tab-second" class="floor-tab">Second Floor</button>
+    </div>
+
+    <!-- Floor plan images -->
+    <div id="fp-ground" class="floor-panel reveal reveal-delay-1">
+      <div style="border:1px solid rgba(201,169,110,0.2); background:#FDF8F0; padding:20px; border-radius:2px;">
+        <div class="flex flex-wrap gap-6 items-start mb-6">
+          <div>
+            <p class="section-label mb-1">Ground Floor</p>
+            <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:#2C2318;">Retail Showrooms & Executive Shops</h3>
+          </div>
+          <div class="ml-auto flex gap-6 text-right">
+            <div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:#C9A96E;">300 ft</div>
+              <div style="font-family:'Jost',sans-serif; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:#8C7B65;">Arcade Front</div>
+            </div>
+            <div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:#C9A96E;">West Open</div>
+              <div style="font-family:'Jost',sans-serif; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:#8C7B65;">Showroom Facing</div>
+            </div>
+          </div>
+        </div>
+        <img src="proj_assets/floorplan-ground.png" alt="Ground Floor Plan" style="width:100%; border-radius:2px; border:1px solid rgba(201,169,110,0.15);" />
+      </div>
+    </div>
+
+    <div id="fp-first" class="floor-panel" style="display:none;">
+      <div style="border:1px solid rgba(201,169,110,0.2); background:#FDF8F0; padding:20px; border-radius:2px;">
+        <div class="flex flex-wrap gap-6 items-start mb-6">
+          <div>
+            <p class="section-label mb-1">First Floor</p>
+            <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:#2C2318;">Premium Office Units (101–135)</h3>
+          </div>
+          <div class="ml-auto flex gap-6 text-right">
+            <div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:#C9A96E;">338–779</div>
+              <div style="font-family:'Jost',sans-serif; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:#8C7B65;">Sqft Options</div>
+            </div>
+            <div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:#C9A96E;">35 Units</div>
+              <div style="font-family:'Jost',sans-serif; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:#8C7B65;">Available</div>
+            </div>
+          </div>
+        </div>
+        <img src="proj_assets/floorplan-first.png" alt="First Floor Plan" style="width:100%; border-radius:2px; border:1px solid rgba(201,169,110,0.15);" />
+      </div>
+    </div>
+
+    <div id="fp-second" class="floor-panel" style="display:none;">
+      <div style="border:1px solid rgba(201,169,110,0.2); background:#FDF8F0; padding:20px; border-radius:2px;">
+        <div class="flex flex-wrap gap-6 items-start mb-6">
+          <div>
+            <p class="section-label mb-1">Second Floor</p>
+            <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:#2C2318;">Premium Office Units (201–235)</h3>
+          </div>
+          <div class="ml-auto flex gap-6 text-right">
+            <div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:#C9A96E;">338–779</div>
+              <div style="font-family:'Jost',sans-serif; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:#8C7B65;">Sqft Options</div>
+            </div>
+            <div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:#C9A96E;">35 Units</div>
+              <div style="font-family:'Jost',sans-serif; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:#8C7B65;">Available</div>
+            </div>
+          </div>
+        </div>
+        <img src="proj_assets/floorplan-second.png" alt="Second Floor Plan" style="width:100%; border-radius:2px; border:1px solid rgba(201,169,110,0.15);" />
+      </div>
+    </div>
+
+    <div class="text-center mt-10 reveal">
+      <a href="#contact" class="btn-primary">
+        Request Detailed Floor Plan
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+.floor-tab {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border: 1px solid rgba(201,169,110,0.3);
+  color: #8C7B65;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.25s;
+  margin-left: -1px;
+}
+.floor-tab:hover { color: #C9A96E; border-color: rgba(201,169,110,0.6); }
+.floor-tab-active { background: #2C2318; color: #C9A96E !important; border-color: #2C2318 !important; }
+</style>
+
+<script>
+function showFloor(f) {
+  document.querySelectorAll('.floor-panel').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.floor-tab').forEach(el => el.classList.remove('floor-tab-active'));
+  document.getElementById('fp-' + f).style.display = 'block';
+  document.getElementById('tab-' + f).classList.add('floor-tab-active');
+}
+</script>
+
+<!-- ═══════════════════════ FEATURES / AMENITIES ═══════════════════════ -->
+<section id="features" class="dark-section py-28 px-8 lg:px-20">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-20 items-start">
+
+      <div>
+        <p class="section-label reveal">04 — Key Features</p>
+        <div class="gold-rule-lg my-6 reveal reveal-delay-1"></div>
+        <h2 class="reveal reveal-delay-1" style="font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(2rem,4vw,3.5rem); letter-spacing:-0.02em; color:#F8F2E6; line-height:1.1;">
+          Designed for<br/><em style="color:#C9A96E;">Modern Commerce</em>
+        </h2>
+        <p class="reveal reveal-delay-2 mt-8" style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.95rem; line-height:1.85; color:rgba(248,242,230,0.6);">
+          Every detail of Royal Millennium has been engineered to give businesses a competitive edge — from its commanding 300-ft arcade front to its 4,000+ sqft outdoor seating that invites footfall.
+        </p>
+
+        <div class="mt-12 grid grid-cols-2 gap-4">
+          <div class="feature-card p-6 reveal reveal-delay-1" style="background:rgba(255,255,255,0.03);">
+            <div class="mb-3">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:#F8F2E6; font-weight:500;">Modern Classic Elevation</div>
+            <div style="font-size:0.78rem; color:rgba(248,242,230,0.45); margin-top:4px; line-height:1.6;">Iconic architectural facade that commands attention</div>
+          </div>
+
+          <div class="feature-card p-6 reveal reveal-delay-2" style="background:rgba(255,255,255,0.03);">
+            <div class="mb-3">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.2"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:#F8F2E6; font-weight:500;">25,000+ Sqft Parking</div>
+            <div style="font-size:0.78rem; color:rgba(248,242,230,0.45); margin-top:4px; line-height:1.6;">Ample dedicated open parking for tenants & visitors</div>
+          </div>
+
+          <div class="feature-card p-6 reveal reveal-delay-3" style="background:rgba(255,255,255,0.03);">
+            <div class="mb-3">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.2"><path d="M17 17h2a2 2 0 000-4h-2V7l-4-4H5a2 2 0 00-2 2v14a2 2 0 002 2h9.5"/><path d="M10 3v4a1 1 0 001 1h4M21 21l-1.5-1.5M19.5 17a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:#F8F2E6; font-weight:500;">4,000+ Sqft Outdoor Seating</div>
+            <div style="font-size:0.78rem; color:rgba(248,242,230,0.45); margin-top:4px; line-height:1.6;">Landscaped outdoor areas driving organic footfall</div>
+          </div>
+
+          <div class="feature-card p-6 reveal reveal-delay-4" style="background:rgba(255,255,255,0.03);">
+            <div class="mb-3">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:#F8F2E6; font-weight:500;">High Security 24×7</div>
+            <div style="font-size:0.78rem; color:rgba(248,242,230,0.45); margin-top:4px; line-height:1.6;">CCTV surveillance & dedicated security personnel</div>
+          </div>
+
+          <div class="feature-card p-6 reveal reveal-delay-2" style="background:rgba(255,255,255,0.03);">
+            <div class="mb-3">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.2"><path d="M8 6L8 4M16 6V4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:#F8F2E6; font-weight:500;">Lift Facility</div>
+            <div style="font-size:0.78rem; color:rgba(248,242,230,0.45); margin-top:4px; line-height:1.6;">Modern elevator access across all floors</div>
+          </div>
+
+          <div class="feature-card p-6 reveal reveal-delay-3" style="background:rgba(255,255,255,0.03);">
+            <div class="mb-3">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.2"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24M15.17 8.83l4.24-4.24"/></svg>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:#F8F2E6; font-weight:500;">Fire Safety System</div>
+            <div style="font-size:0.78rem; color:rgba(248,242,230,0.45); margin-top:4px; line-height:1.6;">Full compliance fire suppression & safety measures</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: large image + additional features -->
+      <div class="space-y-6 reveal reveal-delay-2">
+        <div class="gallery-img" style="height:380px; border-radius:2px;">
+          <img src="proj_assets/IMG-20260503-WA0031.jpg" alt="Aerial View of Royal Millennium" />
+        </div>
+
+        <!-- Additional feature list -->
+        <div class="space-y-0" style="border:1px solid rgba(201,169,110,0.15); background:rgba(255,255,255,0.02);">
+          <div class="flex items-center gap-4 px-6 py-4" style="border-bottom:1px solid rgba(201,169,110,0.1);">
+            <span style="color:#C9A96E; font-size:0.7rem;">✦</span>
+            <span style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.88rem; color:rgba(248,242,230,0.75);">Street lighting across the entire complex</span>
+          </div>
+          <div class="flex items-center gap-4 px-6 py-4" style="border-bottom:1px solid rgba(201,169,110,0.1);">
+            <span style="color:#C9A96E; font-size:0.7rem;">✦</span>
+            <span style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.88rem; color:rgba(248,242,230,0.75);">Beautiful landscaping & green buffer zones</span>
+          </div>
+          <div class="flex items-center gap-4 px-6 py-4" style="border-bottom:1px solid rgba(201,169,110,0.1);">
+            <span style="color:#C9A96E; font-size:0.7rem;">✦</span>
+            <span style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.88rem; color:rgba(248,242,230,0.75);">West-open showrooms for maximum visibility</span>
+          </div>
+          <div class="flex items-center gap-4 px-6 py-4" style="border-bottom:1px solid rgba(201,169,110,0.1);">
+            <span style="color:#C9A96E; font-size:0.7rem;">✦</span>
+            <span style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.88rem; color:rgba(248,242,230,0.75);">Flexible & affordable payment plans</span>
+          </div>
+          <div class="flex items-center gap-4 px-6 py-4">
+            <span style="color:#C9A96E; font-size:0.7rem;">✦</span>
+            <span style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.88rem; color:rgba(248,242,230,0.75);">Freehold ownership — your asset, forever</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ GALLERY ═══════════════════════ -->
+<section class="py-4 px-4 lg:px-8" style="background:#2C2318;">
+  <div class="grid grid-cols-3 gap-4 max-w-7xl mx-auto">
+    <div class="gallery-img col-span-2 reveal" style="height:420px; border-radius:2px;">
+      <img src="proj_assets/IMG-20260503-WA0020.jpg" alt="Royal Millennium dusk render" />
+    </div>
+    <div class="flex flex-col gap-4">
+      <div class="gallery-img reveal reveal-delay-1" style="height:200px; border-radius:2px;">
+        <img src="proj_assets/IMG-20260503-WA0029.jpg" alt="Royal Millennium angle" />
+      </div>
+      <div class="gallery-img reveal reveal-delay-2" style="height:200px; border-radius:2px;">
+        <img src="proj_assets/IMG-20260503-WA0031.jpg" alt="Royal Millennium aerial view" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ LOCATION ═══════════════════════ -->
+<section id="location" class="py-28 px-8 lg:px-20" style="background:#F8F2E6;">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-20 items-center">
+
+      <!-- Text -->
+      <div>
+        <p class="section-label reveal">05 — Location</p>
+        <div class="gold-rule-lg my-6 reveal reveal-delay-1"></div>
+        <h2 class="reveal reveal-delay-1" style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(2rem,4vw,3.5rem); letter-spacing:-0.02em; color:#2C2318; line-height:1.1;">
+          Positioned at<br/><em style="color:#9E7C45;">Every Crossroads</em>
+        </h2>
+        <p class="reveal reveal-delay-2 mt-7" style="font-family:'Jost',sans-serif; font-size:0.95rem; line-height:1.85; color:#534430; font-weight:300;">
+          Situated on the 100-ft double-lane Airport Road at the gateway of Kandla Airport — one of India's busiest cargo hubs — Royal Millennium enjoys unmatched commercial connectivity and daily footfall.
+        </p>
+
+        <div class="mt-10 space-y-5 reveal reveal-delay-3">
+          <div class="flex items-start gap-4 pb-5" style="border-bottom:1px solid rgba(201,169,110,0.2);">
+            <svg class="mt-1 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+            <div>
+              <div style="font-family:'Jost',sans-serif; font-weight:500; font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; color:#2C2318;">Address</div>
+              <div style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.9rem; color:#534430; margin-top:2px;">Airport Road, Gateway of Kandla Airport,<br/>Opposite Lake City, Gandhidham, Gujarat</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 pb-5" style="border-bottom:1px solid rgba(201,169,110,0.2);">
+            <svg class="mt-1 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <div>
+              <div style="font-family:'Jost',sans-serif; font-weight:500; font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; color:#2C2318;">Connectivity</div>
+              <div style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.9rem; color:#534430; margin-top:2px;">Direct access via Gandhidham Bypass &<br/>New Anjar-Bhuj Bypass Road</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <svg class="mt-1 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            <div>
+              <div style="font-family:'Jost',sans-serif; font-weight:500; font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; color:#2C2318;">Catchment</div>
+              <div style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.9rem; color:#534430; margin-top:2px;">1,000+ families within 1 km radius in<br/>premium residential societies</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming area development -->
+      <div class="reveal reveal-delay-2">
+        <div style="background:#2C2318; padding:40px; border-radius:2px; position:relative; overflow:hidden;">
+          <div style="position:absolute; top:0; right:0; width:200px; height:200px; background:radial-gradient(circle, rgba(201,169,110,0.12) 0%, transparent 70%); pointer-events:none;"></div>
+          <p class="section-label mb-2">Upcoming at Airport Road</p>
+          <h3 style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:1.75rem; color:#F8F2E6; margin-bottom:24px;">The Neighbourhood<br/><em style="color:#C9A96E;">is Transforming</em></h3>
+          <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+            <div class="flex items-center gap-3">
+              <span style="width:6px; height:6px; background:#C9A96E; border-radius:50%; flex-shrink:0;"></span>
+              <span style="font-family:'Jost',sans-serif; font-size:0.82rem; color:rgba(248,242,230,0.7); font-weight:300;">Banks & Finance</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span style="width:6px; height:6px; background:#C9A96E; border-radius:50%; flex-shrink:0;"></span>
+              <span style="font-family:'Jost',sans-serif; font-size:0.82rem; color:rgba(248,242,230,0.7); font-weight:300;">Supermarkets & Salon</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span style="width:6px; height:6px; background:#C9A96E; border-radius:50%; flex-shrink:0;"></span>
+              <span style="font-family:'Jost',sans-serif; font-size:0.82rem; color:rgba(248,242,230,0.7); font-weight:300;">Cafés & Restaurants</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span style="width:6px; height:6px; background:#C9A96E; border-radius:50%; flex-shrink:0;"></span>
+              <span style="font-family:'Jost',sans-serif; font-size:0.82rem; color:rgba(248,242,230,0.7); font-weight:300;">Luxurious Theatre</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span style="width:6px; height:6px; background:#C9A96E; border-radius:50%; flex-shrink:0;"></span>
+              <span style="font-family:'Jost',sans-serif; font-size:0.82rem; color:rgba(248,242,230,0.7); font-weight:300;">Private Hospital</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span style="width:6px; height:6px; background:#C9A96E; border-radius:50%; flex-shrink:0;"></span>
+              <span style="font-family:'Jost',sans-serif; font-size:0.82rem; color:rgba(248,242,230,0.7); font-weight:300;">Swaminarayan Mandir</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span style="width:6px; height:6px; background:#C9A96E; border-radius:50%; flex-shrink:0;"></span>
+              <span style="font-family:'Jost',sans-serif; font-size:0.82rem; color:rgba(248,242,230,0.7); font-weight:300;">Corporate Houses</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span style="width:6px; height:6px; background:#C9A96E; border-radius:50%; flex-shrink:0;"></span>
+              <span style="font-family:'Jost',sans-serif; font-size:0.82rem; color:rgba(248,242,230,0.7); font-weight:300;">Commercial Arcades</span>
+            </div>
+          </div>
+          <div class="gold-rule-lg mt-8"></div>
+          <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1rem; color:rgba(201,169,110,0.7); margin-top:12px;">A rising corridor of commerce &amp; culture.</p>
+        </div>
+
+        <!-- Ideal for tag cloud -->
+        <div class="mt-5 p-6" style="border:1px solid rgba(201,169,110,0.2); background:#FDF8F0;">
+          <p class="section-label mb-4">Ideal For</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="ideal-tag">Banks</span>
+            <span class="ideal-tag">Restaurant & Café</span>
+            <span class="ideal-tag">Supermart & Bakery</span>
+            <span class="ideal-tag">Hospital & Medical</span>
+            <span class="ideal-tag">Gym & Spa</span>
+            <span class="ideal-tag">Coaching Centre</span>
+            <span class="ideal-tag">Transport & Shipping</span>
+            <span class="ideal-tag">Start-Ups</span>
+            <span class="ideal-tag">Entrepreneurs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.ideal-tag {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #534430;
+  background: rgba(201,169,110,0.12);
+  border: 1px solid rgba(201,169,110,0.3);
+  padding: 6px 14px;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+  cursor: default;
+}
+.ideal-tag:hover {
+  background: rgba(201,169,110,0.22);
+  border-color: #C9A96E;
+  color: #2C2318;
+}
+</style>
+
+<!-- ═══════════════════════ WHY INVEST ═══════════════════════ -->
+<section id="invest" class="dark-section py-28 px-8 lg:px-20">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="section-label reveal">06 — Investment</p>
+      <div class="gold-rule mx-auto my-5 reveal reveal-delay-1"></div>
+      <h2 class="reveal reveal-delay-1" style="font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(2rem,4vw,3.5rem); letter-spacing:-0.02em; color:#F8F2E6;">
+        Why Royal Millennium<br/>is the <em style="color:#C9A96E;">Smart Investment</em>
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px" style="background:rgba(201,169,110,0.1);">
+      <div class="invest-block reveal reveal-delay-1">
+        <div class="num">01</div>
+        <h3>Landmark Location</h3>
+        <p>Airport Road is Gandhidham's most promising commercial corridor — your investment sits at the centre of the city's future growth.</p>
+      </div>
+      <div class="invest-block reveal reveal-delay-2">
+        <div class="num">02</div>
+        <h3>Legacy Investment</h3>
+        <p>Freehold commercial property that builds generational wealth. Own an asset that appreciates as the region's infrastructure expands.</p>
+      </div>
+      <div class="invest-block reveal reveal-delay-3">
+        <div class="num">03</div>
+        <h3>High-Potential Corridor</h3>
+        <p>Surrounded by 1,000+ families, proximity to Kandla Airport, and rapid upcoming development — maximum footfall guaranteed.</p>
+      </div>
+      <div class="invest-block reveal reveal-delay-2">
+        <div class="num">04</div>
+        <h3>Ideal Sizes & Prices</h3>
+        <p>Multiple unit configurations to suit every business type and investment appetite — from compact work-units to premium showrooms.</p>
+      </div>
+      <div class="invest-block reveal reveal-delay-3">
+        <div class="num">05</div>
+        <h3>Flexible Payment Terms</h3>
+        <p>Thoughtfully structured payment plans that make ownership accessible without compromising on quality or location.</p>
+      </div>
+      <div class="invest-block reveal reveal-delay-4">
+        <div class="num">06</div>
+        <h3>Connect. Create. Succeed.</h3>
+        <p>More than a property — a thriving ecosystem where businesses grow together at one of Gujarat's most strategic addresses.</p>
+      </div>
+    </div>
+
+    <div class="text-center mt-16 reveal">
+      <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.4rem; color:rgba(248,242,230,0.5); margin-bottom:24px;">Invest & Grow with Us — A Huge Opportunity for Investors & Entrepreneurs</p>
+      <a href="#contact" class="btn-primary">
+        Schedule a Site Visit
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+.invest-block {
+  background: rgba(255,255,255,0.02);
+  padding: 40px 36px;
+  transition: background 0.3s;
+}
+.invest-block:hover { background: rgba(201,169,110,0.06); }
+.invest-block .num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  color: rgba(201,169,110,0.2);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.invest-block h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: #F8F2E6;
+  margin-bottom: 12px;
+}
+.invest-block p {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: rgba(248,242,230,0.5);
+  line-height: 1.75;
+}
+</style>
+
+<!-- ═══════════════════════ CONTACT ═══════════════════════ -->
+<section id="contact" class="py-28 px-8 lg:px-20" style="background:#EDE4D0;">
+  <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-start">
+
+    <div>
+      <p class="section-label reveal">07 — Enquire</p>
+      <div class="gold-rule-lg my-6 reveal reveal-delay-1"></div>
+      <h2 class="reveal reveal-delay-1" style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(2rem,4vw,3.4rem); letter-spacing:-0.02em; color:#2C2318; line-height:1.1;">
+        Begin Your<br/><em style="color:#9E7C45;">Royal Journey</em>
+      </h2>
+      <p class="reveal reveal-delay-2 mt-6" style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.95rem; line-height:1.85; color:#534430; max-width:420px;">
+        Reach out to our team to schedule a site visit, request a detailed brochure, or learn more about available units and pricing.
+      </p>
+
+      <div class="mt-12 space-y-6 reveal reveal-delay-3">
+        <div class="flex items-center gap-5">
+          <div style="width:44px; height:44px; background:rgba(201,169,110,0.15); border:1px solid rgba(201,169,110,0.3); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:#8C7B65; margin-bottom:2px;">Call Us</div>
+            <a href="tel:+919574768056" style="font-family:'Cormorant Garamond',serif; font-size:1.25rem; color:#2C2318; font-weight:500; display:block; transition:color 0.2s;" onmouseover="this.style.color='#9E7C45'" onmouseout="this.style.color='#2C2318'">+91 95747 68056</a>
+            <a href="tel:+919227664145" style="font-family:'Cormorant Garamond',serif; font-size:1.25rem; color:#2C2318; font-weight:500; display:block; transition:color 0.2s;" onmouseover="this.style.color='#9E7C45'" onmouseout="this.style.color='#2C2318'">+91 92276 64145</a>
+          </div>
+        </div>
+        <div class="flex items-center gap-5">
+          <div style="width:44px; height:44px; background:rgba(201,169,110,0.15); border:1px solid rgba(201,169,110,0.3); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:#8C7B65; margin-bottom:2px;">Visit</div>
+            <span style="font-family:'Jost',sans-serif; font-size:0.9rem; color:#534430; font-weight:300; line-height:1.6;">Airport Road, Gateway of Kandla Airport,<br/>Gandhidham, Gujarat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="reveal reveal-delay-2">
+      <form onsubmit="handleSubmit(event)" style="background:#2C2318; padding:44px; border-radius:2px;">
+        <div style="display:flex; flex-direction:column; gap:28px;">
+          <div>
+            <label style="font-family:'Jost',sans-serif; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(248,242,230,0.45); display:block; margin-bottom:8px;">Your Name</label>
+            <input type="text" class="form-input" placeholder="Enter your full name" required />
+          </div>
+          <div>
+            <label style="font-family:'Jost',sans-serif; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(248,242,230,0.45); display:block; margin-bottom:8px;">Phone Number</label>
+            <input type="tel" class="form-input" placeholder="+91 XXXXX XXXXX" required />
+          </div>
+          <div>
+            <label style="font-family:'Jost',sans-serif; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(248,242,230,0.45); display:block; margin-bottom:8px;">Interested In</label>
+            <select class="form-input" style="background:transparent; cursor:pointer;">
+              <option value="" style="background:#2C2318;">Select unit type</option>
+              <option value="showroom" style="background:#2C2318;">Premium Retail Showroom</option>
+              <option value="shop" style="background:#2C2318;">Executive Shop</option>
+              <option value="office" style="background:#2C2318;">Spacious Office</option>
+              <option value="workunit" style="background:#2C2318;">Work Unit</option>
+              <option value="investment" style="background:#2C2318;">Investment Inquiry</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-family:'Jost',sans-serif; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(248,242,230,0.45); display:block; margin-bottom:8px;">Message (Optional)</label>
+            <textarea class="form-input" rows="3" placeholder="Any specific requirements..." style="resize:none;"></textarea>
+          </div>
+          <button type="submit" class="btn-primary w-full justify-center">
+            Send Enquiry
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <p id="form-success" style="display:none; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1rem; color:#C9A96E; text-align:center; margin-top:16px;">Thank you! We'll be in touch shortly.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer style="background:#1A1209; border-top:1px solid rgba(201,169,110,0.15);">
+  <div class="max-w-7xl mx-auto px-8 lg:px-20 py-16">
+    <div class="grid lg:grid-cols-3 gap-12 items-start">
+
+      <div>
+        <div class="flex flex-col leading-none mb-6">
+          <span style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.5rem; color:#F8F2E6; letter-spacing:0.05em;">ROYAL</span>
+          <span style="font-family:'Cormorant Garamond',serif; font-weight:300; font-size:1rem; color:#C9A96E; letter-spacing:0.22em; text-transform:uppercase;">Millennium</span>
+        </div>
+        <p style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.85rem; color:rgba(248,242,230,0.4); line-height:1.75; max-width:280px;">A landmark commercial destination. Premium spaces for businesses that aspire to define the skyline.</p>
+        <div class="gold-rule mt-8"></div>
+        <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.95rem; color:rgba(201,169,110,0.6); margin-top:12px;">Connect. Create. Succeed.</p>
+      </div>
+
+      <div>
+        <p class="section-label mb-6">Navigate</p>
+        <div class="flex flex-col gap-3">
+          <a href="#about" style="font-family:'Jost',sans-serif; font-size:0.85rem; font-weight:300; color:rgba(248,242,230,0.5); transition:color 0.2s;" onmouseover="this.style.color='#C9A96E'" onmouseout="this.style.color='rgba(248,242,230,0.5)'">About Royal Millennium</a>
+          <a href="#properties" style="font-family:'Jost',sans-serif; font-size:0.85rem; font-weight:300; color:rgba(248,242,230,0.5); transition:color 0.2s;" onmouseover="this.style.color='#C9A96E'" onmouseout="this.style.color='rgba(248,242,230,0.5)'">Commercial Spaces</a>
+          <a href="#features" style="font-family:'Jost',sans-serif; font-size:0.85rem; font-weight:300; color:rgba(248,242,230,0.5); transition:color 0.2s;" onmouseover="this.style.color='#C9A96E'" onmouseout="this.style.color='rgba(248,242,230,0.5)'">Features & Amenities</a>
+          <a href="#location" style="font-family:'Jost',sans-serif; font-size:0.85rem; font-weight:300; color:rgba(248,242,230,0.5); transition:color 0.2s;" onmouseover="this.style.color='#C9A96E'" onmouseout="this.style.color='rgba(248,242,230,0.5)'">Location</a>
+          <a href="#invest" style="font-family:'Jost',sans-serif; font-size:0.85rem; font-weight:300; color:rgba(248,242,230,0.5); transition:color 0.2s;" onmouseover="this.style.color='#C9A96E'" onmouseout="this.style.color='rgba(248,242,230,0.5)'">Why Invest</a>
+          <a href="#contact" style="font-family:'Jost',sans-serif; font-size:0.85rem; font-weight:300; color:rgba(248,242,230,0.5); transition:color 0.2s;" onmouseover="this.style.color='#C9A96E'" onmouseout="this.style.color='rgba(248,242,230,0.5)'">Contact Us</a>
+        </div>
+      </div>
+
+      <div>
+        <p class="section-label mb-6">Get in Touch</p>
+        <div class="space-y-4">
+          <div>
+            <div style="font-family:'Jost',sans-serif; font-size:0.65rem; letter-spacing:0.16em; text-transform:uppercase; color:rgba(248,242,230,0.3); margin-bottom:4px;">Phone</div>
+            <a href="tel:+919574768056" style="font-family:'Jost',sans-serif; font-size:0.9rem; color:rgba(248,242,230,0.65); transition:color 0.2s; display:block;" onmouseover="this.style.color='#C9A96E'" onmouseout="this.style.color='rgba(248,242,230,0.65)'">+91 95747 68056</a>
+            <a href="tel:+919227664145" style="font-family:'Jost',sans-serif; font-size:0.9rem; color:rgba(248,242,230,0.65); transition:color 0.2s; display:block;" onmouseover="this.style.color='#C9A96E'" onmouseout="this.style.color='rgba(248,242,230,0.65)'">+91 92276 64145</a>
+          </div>
+          <div>
+            <div style="font-family:'Jost',sans-serif; font-size:0.65rem; letter-spacing:0.16em; text-transform:uppercase; color:rgba(248,242,230,0.3); margin-bottom:4px;">Location</div>
+            <p style="font-family:'Jost',sans-serif; font-size:0.85rem; color:rgba(248,242,230,0.5); font-weight:300; line-height:1.65;">Airport Road, Gateway of Kandla Airport,<br/>Gandhidham, Gujarat, India</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mt-16 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style="border-top:1px solid rgba(201,169,110,0.1);">
+      <p style="font-family:'Jost',sans-serif; font-size:0.75rem; color:rgba(248,242,230,0.25); letter-spacing:0.06em;">© 2026 Royal Millennium. All rights reserved.</p>
+      <p style="font-family:'Jost',sans-serif; font-size:0.75rem; color:rgba(248,242,230,0.2); letter-spacing:0.06em;">Freehold · Landmark · Legacy</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navbar.classList.add('nav-scrolled');
+      navbar.style.background = '';
+      navbar.style.paddingTop = '16px';
+      navbar.style.paddingBottom = '16px';
+    } else {
+      navbar.classList.remove('nav-scrolled');
+      navbar.style.background = 'linear-gradient(to bottom, rgba(20,14,6,0.6), transparent)';
+      navbar.style.paddingTop = '20px';
+      navbar.style.paddingBottom = '20px';
+    }
+  }, { passive: true });
+
+  // Mobile menu
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  let menuOpen = false;
+  menuToggle.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    if (menuOpen) {
+      mobileMenu.classList.remove('hidden');
+    } else {
+      mobileMenu.classList.add('hidden');
+    }
+  });
+  function closeMobile() {
+    menuOpen = false;
+    mobileMenu.classList.add('hidden');
+  }
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Form
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type=submit]');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    setTimeout(() => {
+      document.getElementById('form-success').style.display = 'block';
+      e.target.reset();
+      btn.textContent = 'Send Enquiry';
+      btn.disabled = false;
+    }, 1200);
+  }
+</script>
+
+</body>
+</html>

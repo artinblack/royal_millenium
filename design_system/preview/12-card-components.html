@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Card Components — Royal Millennium</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Montserrat', sans-serif; background: #f5f0e8; padding: 24px; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #9e8668; margin-bottom: 12px; }
+  .divider { height: 1px; background: #ddd0be; margin: 16px 0; }
+  .row { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  /* Feature Card */
+  .feature-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    width: 180px;
+    box-shadow: 0 4px 16px rgba(42,36,32,0.10);
+  }
+  .feature-card-accent { width: 32px; height: 3px; background: #c9a84c; margin-bottom: 12px; }
+  .feature-card-title { font-size: 14px; font-weight: 700; color: #2a2420; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .feature-card-body { font-size: 12px; color: #5c5148; line-height: 1.5; }
+
+  /* Stat Card */
+  .stat-card {
+    background: #3a3530;
+    border-radius: 12px;
+    padding: 20px;
+    width: 140px;
+    text-align: center;
+  }
+  .stat-number { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #c9a84c; line-height: 1; }
+  .stat-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 6px; }
+
+  /* Investment Card */
+  .invest-card {
+    background: #c9a84c;
+    border-radius: 12px;
+    padding: 20px 24px;
+    width: 220px;
+  }
+  .invest-card-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #1e1a17; margin-bottom: 8px; }
+  .invest-card-price { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #1e1a17; }
+  .invest-card-sub { font-size: 12px; color: rgba(30,26,23,0.65); margin-top: 4px; }
+
+  /* Location Pill Card */
+  .location-card {
+    background: #fff;
+    border-radius: 999px;
+    padding: 10px 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 10px rgba(42,36,32,0.10);
+  }
+  .location-icon { width: 20px; height: 20px; color: #c9a84c; }
+  .location-text { font-size: 12px; font-weight: 600; color: #3a3530; }
+</style>
+</head>
+<body>
+  <div class="section-label">Feature Card</div>
+  <div class="row" style="margin-bottom:4px">
+    <div class="feature-card">
+      <div class="feature-card-accent"></div>
+      <div class="feature-card-title">Retail Showrooms</div>
+      <div class="feature-card-body">Premium west-facing showrooms with 300 ft arcade frontage.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-accent"></div>
+      <div class="feature-card-title">Spacious Offices</div>
+      <div class="feature-card-body">Fully serviced executive offices on upper floors with lift access.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-accent"></div>
+      <div class="feature-card-title">Work Units</div>
+      <div class="feature-card-body">Special work-units designed for start-ups and entrepreneurs.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-label">Stat Card</div>
+  <div class="row" style="margin-bottom:4px">
+    <div class="stat-card">
+      <div class="stat-number">300<span style="font-size:18px">ft</span></div>
+      <div class="stat-label">Arcade Front</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">25K+</div>
+      <div class="stat-label">Sqft Parking</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">4K+</div>
+      <div class="stat-label">Outdoor Seating</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-label">Pricing Card · Location Pill</div>
+  <div class="row">
+    <div class="invest-card">
+      <div class="invest-card-eyebrow">Starting From</div>
+      <div class="invest-card-price">₹25 Lacs*</div>
+      <div class="invest-card-sub">Freehold Commercial · Flexible Payment</div>
+    </div>
+    <div style="display:flex; align-items:center">
+      <div class="location-card">
+        <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div class="location-text">Airport Road, Kandla Airport</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

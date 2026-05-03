@@ -1,0 +1,11 @@
+in index.html
+
+remove the photos with information in it  
+
+add the video as the body instead of the image cover the "veo" watermark from the video
+
+remove the carousel below the body section 
+
+in the four ways to invest add an icon in every ways to invest when the user clicks on the icon an image should be shown from proj_assets related to the image ( the image should not have any information )
+
+make the font a bit larger and the style of the font something bold and miniemalistic, don't make it thin and curvy ( it should be eye catchy to the viewer )

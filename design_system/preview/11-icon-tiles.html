@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Icon Tiles — Royal Millennium</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/lucide@latest/dist/lucide.min.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Montserrat', sans-serif; background: #3a3530; padding: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .tile { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .tile-icon {
+    width: 80px; height: 80px;
+    background: #c9a84c;
+    border-radius: 16px 16px 16px 16px;
+    border-top-right-radius: 32px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tile-icon svg { width: 36px; height: 36px; stroke: #1e1a17; stroke-width: 1.8; fill: none; }
+  .tile-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: #ffffff; text-align: center; line-height: 1.3;
+  }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #c9a84c; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+  <div class="section-label">Amenity Icon Tiles</div>
+  <div class="grid">
+    <div class="tile">
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/><path d="M12 14v2"/></svg>
+      </div>
+      <div class="tile-label">24×7 Security</div>
+    </div>
+    <div class="tile">
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="16" cy="9" r="1.5"/><path d="M2 9l4-4 4 4 4-4 4 4"/></svg>
+      </div>
+      <div class="tile-label">CCTV Secured</div>
+    </div>
+    <div class="tile">
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 6h6M9 10h6M9 14h6M9 18h2"/><path d="M17 6v12"/></svg>
+      </div>
+      <div class="tile-label">Elevator</div>
+    </div>
+    <div class="tile">
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="tile-label">Fire Safety</div>
+    </div>
+    <div class="tile">
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h3l3 3v5h-6V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      </div>
+      <div class="tile-label">Ample Parking</div>
+    </div>
+    <div class="tile">
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div class="tile-label">Modern Elevation</div>
+    </div>
+    <div class="tile">
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9h18M3 15h18M12 3v18"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+      </div>
+      <div class="tile-label">Outdoor Seating</div>
+    </div>
+    <div class="tile">
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      </div>
+      <div class="tile-label">Street Light</div>
+    </div>
+  </div>
+</body>
+</html>

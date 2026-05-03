@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Royal Millennium — Premium Commercial Spaces</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #c9a84c;
+    --gold-hover: #b08c30;
+    --gold-light: #f8f0d8;
+    --charcoal: #3a3530;
+    --charcoal-dark: #2a2420;
+    --charcoal-deep: #1e1a17;
+    --sand: #c8b89a;
+    --sand-light: #f5f0e8;
+    --sand-mid: #ede4d6;
+    --muted: #7a6e68;
+    --border: #ddd0be;
+    --white: #ffffff;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Montserrat', Arial, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--sand-light); color: var(--charcoal); -webkit-font-smoothing: antialiased; }
+  img { display: block; width: 100%; object-fit: cover; }
+  a { text-decoration: none; color: inherit; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--charcoal); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+/* ── SHARED TOKENS ─────────────────────────────── */
+const T = {
+  gold: '#c9a84c',
+  goldHover: '#b08c30',
+  goldLight: '#f8f0d8',
+  charcoal: '#3a3530',
+  charcoalDark: '#2a2420',
+  charcoalDeep: '#1e1a17',
+  sand: '#c8b89a',
+  sandLight: '#f5f0e8',
+  sandMid: '#ede4d6',
+  muted: '#7a6e68',
+  border: '#ddd0be',
+  white: '#ffffff',
+};
+
+/* ── NAV ───────────────────────────────────────── */
+function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const links = ['Overview', 'Features', 'Amenities', 'Location', 'Gallery', 'Contact'];
+
+  const navStyle = {
+    position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+    transition: 'background 300ms, box-shadow 300ms',
+    background: scrolled ? T.white : 'transparent',
+    boxShadow: scrolled ? '0 2px 20px rgba(42,36,32,0.10)' : 'none',
+  };
+
+  const logoColor = scrolled ? T.charcoalDark : T.white;
+  const linkColor = scrolled ? T.muted : 'rgba(255,255,255,0.82)';
+  const linkActiveColor = T.gold;
+
+  return (
+    <nav style={navStyle}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px', height: 72, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        {/* Logo */}
+        <div style={{ cursor: 'pointer' }} onClick={() => window.scrollTo({ top: 0 })}>
+          <div style={{ fontFamily: 'var(--font-body)', fontSize: 9, fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: T.gold, marginBottom: 2 }}>ROYAL</div>
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: logoColor, lineHeight: 1 }}>Millennium</div>
+        </div>
+        {/* Desktop links */}
+        <ul style={{ display: 'flex', gap: 28, listStyle: 'none', alignItems: 'center' }}>
+          {links.map(l => (
+            <li key={l}>
+              <a href={`#${l.toLowerCase()}`}
+                style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: linkColor, transition: 'color 200ms', padding: '4px 0', borderBottom: `2px solid transparent` }}
+                onMouseEnter={e => e.target.style.color = linkActiveColor}
+                onMouseLeave={e => e.target.style.color = linkColor}
+              >{l}</a>
+            </li>
+          ))}
+        </ul>
+        <button
+          onClick={() => document.getElementById('contact').scrollIntoView({ block: 'start' })}
+          style={{ padding: '10px 22px', background: T.gold, color: T.charcoalDeep, border: 'none', borderRadius: 6, fontFamily: 'var(--font-body)', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', cursor: 'pointer', transition: 'background 200ms' }}
+          onMouseEnter={e => e.target.style.background = T.goldHover}
+          onMouseLeave={e => e.target.style.background = T.gold}
+        >Enquire Now</button>
+      </div>
+    </nav>
+  );
+}
+
+/* ── HERO ───────────────────────────────────────── */
+function Hero() {
+  return (
+    <section id="overview" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'flex-end', overflow: 'hidden' }}>
+      <img src="../../assets/hero-render-1.jpg" alt="Royal Millennium Building" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(22,18,14,0.95) 0%, rgba(22,18,14,0.55) 50%, rgba(22,18,14,0.1) 100%)' }}></div>
+      <div style={{ position: 'relative', zIndex: 2, width: '100%', maxWidth: 1200, margin: '0 auto', padding: '0 32px 80px' }}>
+        <div style={{ maxWidth: 620 }}>
+          <div style={{ display: 'flex', gap: 10, marginBottom: 20 }}>
+            {['#LANDMARK', '#LUXURY', '#ROYALITY'].map(tag => (
+              <span key={tag} style={{ padding: '5px 14px', background: 'rgba(201,168,76,0.15)', border: '1px solid rgba(201,168,76,0.4)', borderRadius: 999, fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: T.gold }}>{tag}</span>
+            ))}
+          </div>
+          <div style={{ fontFamily: 'var(--font-body)', fontSize: 11, fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: T.gold, marginBottom: 12 }}>Redefined Royality</div>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(52px, 7vw, 88px)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', color: T.white, lineHeight: 1.0, marginBottom: 18 }}>
+            Royal<br />Millennium
+          </h1>
+          <p style={{ fontSize: 18, fontWeight: 400, color: 'rgba(255,255,255,0.72)', lineHeight: 1.65, marginBottom: 32, maxWidth: 480 }}>
+            Premium Retail Showrooms · Executive Shops · Spacious Offices · Work Units for Start-ups
+          </p>
+          <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
+            <button
+              onClick={() => document.getElementById('contact').scrollIntoView({ block: 'start' })}
+              style={{ padding: '15px 34px', background: T.gold, color: T.charcoalDeep, border: 'none', borderRadius: 8, fontFamily: 'var(--font-body)', fontSize: 13, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', cursor: 'pointer' }}>
+              Book a Site Visit
+            </button>
+            <button
+              onClick={() => document.getElementById('features').scrollIntoView({ block: 'start' })}
+              style={{ padding: '15px 34px', background: 'transparent', color: T.white, border: '1.5px solid rgba(255,255,255,0.35)', borderRadius: 8, fontFamily: 'var(--font-body)', fontSize: 13, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', cursor: 'pointer' }}>
+              Explore Project
+            </button>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 28, fontSize: 12, color: 'rgba(255,255,255,0.45)' }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Airport Road, Gateway of Kandla Airport · Opposite Lake City, Gandhidham
+          </div>
+        </div>
+      </div>
+      {/* Stats strip */}
+      <div style={{ position: 'absolute', bottom: 0, right: 0, display: 'flex', background: 'rgba(201,168,76,0.92)', borderTopLeftRadius: 12 }}>
+        {[
+          { num: '300ft', label: 'Arcade Front' },
+          { num: '25K+', label: 'Sqft Parking' },
+          { num: '4K+', label: 'Outdoor Seating' },
+          { num: 'G+2', label: 'Floors' },
+        ].map((s, i) => (
+          <div key={i} style={{ padding: '18px 28px', borderLeft: i > 0 ? '1px solid rgba(30,26,23,0.18)' : 'none', textAlign: 'center' }}>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 700, color: T.charcoalDeep, lineHeight: 1 }}>{s.num}</div>
+            <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(30,26,23,0.6)', marginTop: 4 }}>{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ── FEATURES ───────────────────────────────────── */
+function Features() {
+  const features = [
+    { title: 'Modern Classic Elevation', desc: 'Giant 300 ft arcade front with a timeless modern-classic facade.' },
+    { title: 'West-Open Showrooms', desc: 'Premium west-facing retail showrooms with maximum visibility and footfall.' },
+    { title: 'Spacious Offices', desc: 'Executive office spaces designed for productivity across upper floors.' },
+    { title: 'Work Units', desc: 'Special start-up-friendly work units at affordable entry-level pricing.' },
+    { title: '25,000+ Sqft Parking', desc: 'Vast open parking space with allotted slots for all tenants and visitors.' },
+    { title: 'Freehold Commercial', desc: 'Full ownership title — a legacy asset and wealth creation opportunity.' },
+  ];
+
+  return (
+    <section id="features" style={{ background: T.charcoal, padding: '96px 32px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        <div style={{ marginBottom: 56, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+          <div>
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: T.gold, marginBottom: 12 }}>Key Features of Millennium</div>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 700, color: T.white, lineHeight: 1.15 }}>Everything a Premium<br />Commercial Space Needs</h2>
+          </div>
+          <div style={{ width: 48, height: 3, background: T.gold, marginBottom: 8 }}></div>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 2 }}>
+          {features.map((f, i) => (
+            <div key={i} style={{
+              background: i % 2 === 0 ? '#2a2420' : '#3a3530',
+              padding: '32px 28px', position: 'relative', overflow: 'hidden',
+              transition: 'background 250ms',
+            }}
+              onMouseEnter={e => e.currentTarget.style.background = '#4a3f38'}
+              onMouseLeave={e => e.currentTarget.style.background = i % 2 === 0 ? '#2a2420' : '#3a3530'}
+            >
+              <div style={{ width: 28, height: 2, background: T.gold, marginBottom: 16 }}></div>
+              <h3 style={{ fontSize: 16, fontWeight: 700, color: T.white, marginBottom: 10, letterSpacing: '0.02em', textTransform: 'uppercase' }}>{f.title}</h3>
+              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65 }}>{f.desc}</p>
+              <div style={{ position: 'absolute', top: 20, right: 20, fontFamily: 'var(--font-display)', fontSize: 48, fontWeight: 700, color: 'rgba(201,168,76,0.06)', lineHeight: 1 }}>{String(i + 1).padStart(2, '0')}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── SPACES ─────────────────────────────────────── */
+function Spaces() {
+  const spaces = [
+    { type: 'Premium Retail Showrooms', desc: 'High-visibility west-facing showrooms on ground floor, ideal for fashion, electronics, and lifestyle brands.', price: '₹25 Lacs*', size: 'Flexible sizes' },
+    { type: 'Executive Shops', desc: 'Boutique commercial shops perfect for banking, medical, salons, and specialty retail.', price: '₹25 Lacs*', size: 'Compact to mid' },
+    { type: 'Spacious Offices', desc: 'Premium upper-floor offices with lift access, designed for corporate and professional use.', price: 'On Request', size: 'Mid to large' },
+    { type: 'Work Units', desc: 'Compact, affordable units for start-ups, entrepreneurs, coaching centres and freelancers.', price: 'Affordable', size: 'Compact' },
+  ];
+
+  return (
+    <section style={{ background: T.sandLight, padding: '96px 32px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 56 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: T.gold, marginBottom: 12 }}>What We Offer</div>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, color: T.charcoal }}>Space for Every Vision</h2>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 20 }}>
+          {spaces.map((s, i) => (
+            <div key={i} style={{ background: T.white, borderRadius: 12, overflow: 'hidden', boxShadow: '0 4px 20px rgba(42,36,32,0.08)', transition: 'transform 250ms, box-shadow 250ms' }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(42,36,32,0.14)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(42,36,32,0.08)'; }}
+            >
+              <div style={{ height: 6, background: T.gold }}></div>
+              <div style={{ padding: '24px 24px 28px' }}>
+                <h3 style={{ fontSize: 15, fontWeight: 700, color: T.charcoalDark, marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.03em' }}>{s.type}</h3>
+                <p style={{ fontSize: 13, color: T.muted, lineHeight: 1.6, marginBottom: 20 }}>{s.desc}</p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div>
+                    <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: T.muted }}>Starting From</div>
+                    <div style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 700, color: T.gold }}>{s.price}</div>
+                  </div>
+                  <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', background: T.goldLight, color: T.charcoal, padding: '4px 12px', borderRadius: 999 }}>{s.size}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── AMENITIES ──────────────────────────────────── */
+function Amenities() {
+  const amenities = [
+    { label: '24×7 Security', icon: 'security' },
+    { label: 'CCTV Secured', icon: 'cctv' },
+    { label: 'Elevator', icon: 'elevator' },
+    { label: 'Fire Safety', icon: 'fire' },
+    { label: 'Ample Parking', icon: 'parking' },
+    { label: 'Modern Elevation', icon: 'building' },
+    { label: 'Outdoor Seating', icon: 'seating' },
+    { label: 'Street Lighting', icon: 'light' },
+  ];
+
+  const icons = {
+    security: <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1e1a17" strokeWidth="1.8"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>,
+    cctv: <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1e1a17" strokeWidth="1.8"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>,
+    elevator: <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1e1a17" strokeWidth="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 9l3-3 3 3M15 15l-3 3-3-3"/></svg>,
+    fire: <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1e1a17" strokeWidth="1.8"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 0 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>,
+    parking: <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1e1a17" strokeWidth="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>,
+    building: <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1e1a17" strokeWidth="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>,
+    seating: <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1e1a17" strokeWidth="1.8"><path d="M3 5h18M3 12h18M3 19h18"/></svg>,
+    light: <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1e1a17" strokeWidth="1.8"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>,
+  };
+
+  return (
+    <section id="amenities" style={{ background: T.sand, padding: '96px 32px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 56 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: T.charcoalDeep, marginBottom: 12 }}>World-Class Infrastructure</div>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, color: T.charcoalDeep }}>Built for Comfort & Security</h2>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 28 }}>
+          {amenities.map((a, i) => (
+            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+              <div style={{
+                width: 88, height: 88,
+                background: T.gold,
+                borderRadius: '16px 16px 16px 16px',
+                borderTopRightRadius: 36,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                boxShadow: '0 4px 16px rgba(201,168,76,0.28)',
+              }}>
+                {icons[a.icon]}
+              </div>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: T.charcoalDeep, textAlign: 'center', lineHeight: 1.3 }}>{a.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── GALLERY ────────────────────────────────────── */
+function Gallery() {
+  const [active, setActive] = useState(0);
+  const images = [
+    { src: '../../assets/hero-render-1.jpg', label: 'Front Elevation — Day' },
+    { src: '../../assets/hero-render-2.jpg', label: 'Front Elevation — Dusk' },
+    { src: '../../assets/hero-render-3.jpg', label: 'Street View' },
+    { src: '../../assets/hero-render-4.jpg', label: 'Facade Detail' },
+    { src: '../../assets/aerial-render.jpg', label: 'Aerial View' },
+  ];
+
+  return (
+    <section id="gallery" style={{ background: T.charcoalDeep, padding: '96px 32px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        <div style={{ marginBottom: 40 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: T.gold, marginBottom: 12 }}>Project Visuals</div>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, color: T.white }}>Gallery</h2>
+        </div>
+        <div style={{ borderRadius: 12, overflow: 'hidden', marginBottom: 14, height: 440 }}>
+          <img src={images[active].src} alt={images[active].label} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'opacity 300ms' }} />
+        </div>
+        <div style={{ display: 'flex', gap: 10 }}>
+          {images.map((img, i) => (
+            <div key={i} onClick={() => setActive(i)} style={{
+              flex: 1, height: 72, borderRadius: 6, overflow: 'hidden', cursor: 'pointer',
+              outline: active === i ? `2px solid ${T.gold}` : '2px solid transparent',
+              outlineOffset: 2, opacity: active === i ? 1 : 0.55, transition: 'opacity 200ms, outline 200ms',
+            }}>
+              <img src={img.src} alt={img.label} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 10, fontSize: 11, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{images[active].label}</div>
+      </div>
+    </section>
+  );
+}
+
+/* ── WHY INVEST ─────────────────────────────────── */
+function WhyInvest() {
+  const reasons = [
+    { title: 'Landmark Location', desc: 'Airport Road at Kandla Airport gateway — maximum visibility and connectivity.' },
+    { title: 'High-Potential Zone', desc: 'Rapidly developing Airport Road with upcoming banks, hospitals, malls and theatres.' },
+    { title: 'Legacy Investment', desc: 'Freehold commercial property — pass-on wealth creation for generations.' },
+    { title: 'Premium Catchment', desc: '1000+ families within 1 km radius from premium residential societies.' },
+    { title: 'Bypass Connectivity', desc: 'Connected with Gandhidham Bypass & New Anjar-Bhuj Bypass Road.' },
+    { title: 'Flexible Payment', desc: 'Ideal sizes at effective prices with flexible payment plans starting ₹25 lacs*.' },
+  ];
+
+  return (
+    <section style={{ background: T.charcoal, padding: '96px 32px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
+        <div>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: T.gold, marginBottom: 16 }}>Why to Invest</div>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, color: T.white, marginBottom: 20 }}>The Smartest Commercial Investment in Gandhidham</h2>
+          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, marginBottom: 32 }}>Invest & Grow with us. Royal Millennium presents a once-in-a-generation opportunity for investors, business owners and entrepreneurs at the fastest-growing corridor in the region.</p>
+          <div style={{ padding: '20px 24px', background: T.gold, borderRadius: 10, display: 'inline-block' }}>
+            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: T.charcoalDeep }}>Starting From</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 36, fontWeight: 800, color: T.charcoalDeep, lineHeight: 1.1 }}>₹25 Lacs*</div>
+            <div style={{ fontSize: 11, color: 'rgba(30,26,23,0.65)', marginTop: 4 }}>Freehold · Flexible Payment Terms</div>
+          </div>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
+          {reasons.map((r, i) => (
+            <div key={i} style={{ background: '#2a2420', padding: '20px 18px', position: 'relative' }}
+              onMouseEnter={e => e.currentTarget.style.background = '#4a3f38'}
+              onMouseLeave={e => e.currentTarget.style.background = '#2a2420'}
+            >
+              <div style={{ width: 20, height: 2, background: T.gold, marginBottom: 10 }}></div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: T.white, marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.02em' }}>{r.title}</div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', lineHeight: 1.55 }}>{r.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── LOCATION ───────────────────────────────────── */
+function Location() {
+  const nearbyDev = [
+    'Banks & Financial Institutes',
+    'Supermarkets & Salon',
+    'Transport & Shipping Corporate Houses',
+    'New Cafés & Restaurants',
+    'Luxurious Theatre',
+    'Private Specialised Hospital',
+    'Swaminarayan Mandir',
+    'Large Commercial Arcade',
+  ];
+
+  return (
+    <section id="location" style={{ background: T.sandLight, padding: '96px 32px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 56 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: T.gold, marginBottom: 12 }}>Where We Are</div>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, color: T.charcoal, marginBottom: 14 }}>Prime Location Advantage</h2>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: T.sand, padding: '10px 22px', borderRadius: 999, fontSize: 13, fontWeight: 600, color: T.charcoalDark }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Airport Road, Gateway of Kandla Airport · Opposite Lake City
+          </div>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 }}>
+          {/* Map placeholder */}
+          <div style={{ background: T.sandMid, borderRadius: 12, overflow: 'hidden', minHeight: 320, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+            <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(200,184,154,0.3) 20px, rgba(200,184,154,0.3) 40px)' }}></div>
+            <div style={{ position: 'relative', textAlign: 'center' }}>
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke={T.gold} strokeWidth="1.5" style={{ marginBottom: 12 }}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div style={{ fontSize: 12, fontFamily: 'monospace', color: T.muted }}>[ Map — Airport Road, Gandhidham ]</div>
+            </div>
+          </div>
+          <div>
+            <div style={{ marginBottom: 24 }}>
+              <h3 style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: T.charcoal, marginBottom: 14 }}>Location Highlights</h3>
+              {[
+                'Located at 100ft Double Lane Road',
+                'Connected with Gandhidham Bypass',
+                'New Anjar-Bhuj Bypass Road access',
+                '1000+ families within 1 km radius',
+                'Surrounded by premium residential societies',
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginBottom: 10 }}>
+                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: T.gold, flexShrink: 0, marginTop: 6 }}></div>
+                  <span style={{ fontSize: 13, color: T.muted, lineHeight: 1.5 }}>{item}</span>
+                </div>
+              ))}
+            </div>
+            <div>
+              <h3 style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: T.charcoal, marginBottom: 14 }}>Upcoming in the Area</h3>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                {nearbyDev.map((d, i) => (
+                  <span key={i} style={{ fontSize: 11, fontWeight: 600, background: T.goldLight, color: T.charcoal, padding: '5px 12px', borderRadius: 999, border: `1px solid ${T.border}` }}>{d}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── CONTACT ────────────────────────────────────── */
+function Contact() {
+  const [form, setForm] = useState({ name: '', phone: '', email: '', interest: '', message: '' });
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSent(true);
+    setTimeout(() => setSent(false), 3000);
+  };
+
+  return (
+    <section id="contact" style={{ background: T.charcoal, padding: '96px 32px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64 }}>
+        <div>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: T.gold, marginBottom: 16 }}>Get In Touch</div>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 700, color: T.white, marginBottom: 20 }}>Let's Connect &amp; Grow Together</h2>
+          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, marginBottom: 40 }}>Our team is ready to help you find the perfect space at Royal Millennium. Book a site visit, request a brochure, or simply reach out.</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            {[
+              { label: 'Phone', val: '95747 68056', sub: '92276 64145' },
+              { label: 'Location', val: 'Airport Road, Gateway of Kandla Airport', sub: 'Opposite Lake City, Gandhidham' },
+            ].map((c, i) => (
+              <div key={i} style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+                <div style={{ width: 44, height: 44, background: 'rgba(201,168,76,0.12)', border: '1px solid rgba(201,168,76,0.25)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={T.gold} strokeWidth="1.8">{i === 0 ? <><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 12a19.79 19.79 0 0 1-3.07-8.63 2 2 0 0 1 2-2.18H6.5c.98 0 1.81.74 1.95 1.71.12.96.36 1.9.72 2.8.23.58.07 1.24-.36 1.68L7.91 8.4c1.15 1.97 2.72 3.54 4.69 4.69l.98-.99c.44-.43 1.1-.59 1.68-.36.9.36 1.84.6 2.8.72.97.14 1.71.97 1.71 1.96z"/></> : <><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></>}</svg>
+                </div>
+                <div>
+                  <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: T.gold, marginBottom: 4 }}>{c.label}</div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: T.white }}>{c.val}</div>
+                  <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', marginTop: 2 }}>{c.sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Form */}
+        <div style={{ background: T.charcoalDeep, borderRadius: 14, padding: 36 }}>
+          {sent ? (
+            <div style={{ textAlign: 'center', padding: '40px 0' }}>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: 28, color: T.gold, marginBottom: 12 }}>Thank You!</div>
+              <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 14 }}>We'll be in touch within 24 hours.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
+                {[
+                  { label: 'Full Name', key: 'name', type: 'text', ph: 'Your name' },
+                  { label: 'Phone', key: 'phone', type: 'tel', ph: '+91 00000 00000' },
+                ].map(f => (
+                  <div key={f.key}>
+                    <label style={{ display: 'block', fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', marginBottom: 6 }}>{f.label}</label>
+                    <input type={f.type} placeholder={f.ph} value={form[f.key]} onChange={e => setForm({ ...form, [f.key]: e.target.value })}
+                      style={{ display: 'block', width: '100%', padding: '11px 14px', background: T.charcoal, border: '1.5px solid #4a3f38', borderRadius: 7, fontFamily: 'var(--font-body)', fontSize: 13, color: T.white, outline: 'none' }} />
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ display: 'block', fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', marginBottom: 6 }}>Interested In</label>
+                <select value={form.interest} onChange={e => setForm({ ...form, interest: e.target.value })}
+                  style={{ display: 'block', width: '100%', padding: '11px 14px', background: T.charcoal, border: '1.5px solid #4a3f38', borderRadius: 7, fontFamily: 'var(--font-body)', fontSize: 13, color: form.interest ? T.white : '#7a6e68', outline: 'none' }}>
+                  <option value="">Select space type</option>
+                  <option>Premium Retail Showroom</option>
+                  <option>Executive Shop</option>
+                  <option>Spacious Office</option>
+                  <option>Work Unit (Start-up)</option>
+                </select>
+              </div>
+              <div style={{ marginBottom: 20 }}>
+                <label style={{ display: 'block', fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', marginBottom: 6 }}>Message</label>
+                <textarea placeholder="Tell us about your requirements..." value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} rows={4}
+                  style={{ display: 'block', width: '100%', padding: '11px 14px', background: T.charcoal, border: '1.5px solid #4a3f38', borderRadius: 7, fontFamily: 'var(--font-body)', fontSize: 13, color: T.white, resize: 'vertical', outline: 'none' }} />
+              </div>
+              <button type="submit" style={{ width: '100%', padding: '14px', background: T.gold, color: T.charcoalDeep, border: 'none', borderRadius: 8, fontFamily: 'var(--font-body)', fontSize: 13, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', cursor: 'pointer' }}>
+                Send Enquiry
+              </button>
+            </form>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── FOOTER ─────────────────────────────────────── */
+function Footer() {
+  return (
+    <footer style={{ background: T.charcoalDeep, borderTop: `1px solid #2a2420`, padding: '40px 32px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20 }}>
+        <div>
+          <div style={{ fontFamily: 'var(--font-body)', fontSize: 9, fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: T.gold, marginBottom: 4 }}>ROYAL</div>
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: T.white, lineHeight: 1 }}>Millennium</div>
+          <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', marginTop: 8, fontStyle: 'italic', fontFamily: 'var(--font-display)' }}>Connect. Create. Succeed.</div>
+        </div>
+        <div style={{ display: 'flex', gap: 32 }}>
+          {['Overview', 'Features', 'Amenities', 'Location', 'Gallery', 'Contact'].map(l => (
+            <a key={l} href={`#${l.toLowerCase()}`} style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', transition: 'color 200ms' }}
+              onMouseEnter={e => e.target.style.color = T.gold}
+              onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.4)'}
+            >{l}</a>
+          ))}
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: T.white }}>95747 68056</div>
+          <div style={{ fontSize: 13, fontWeight: 600, color: T.white }}>92276 64145</div>
+          <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', marginTop: 6 }}>Airport Road · Kandla Airport · Gandhidham</div>
+        </div>
+      </div>
+      <div style={{ maxWidth: 1200, margin: '24px auto 0', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 20, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
+        <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.2)', letterSpacing: '0.06em' }}>© 2026 Royal Millennium. All rights reserved. · Prices are indicative.</div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          {['#LANDMARK', '#LUXURY', '#ROYALITY'].map(tag => (
+            <span key={tag} style={{ fontSize: 9, fontWeight: 700, color: 'rgba(201,168,76,0.4)', letterSpacing: '0.08em' }}>{tag}</span>
+          ))}
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ── APP ─────────────────────────────────────────── */
+function App() {
+  return (
+    <div>
+      <Nav />
+      <Hero />
+      <Features />
+      <Spaces />
+      <Amenities />
+      <Gallery />
+      <WhyInvest />
+      <Location />
+      <Contact />
+      <Footer />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Semantic Colors — Royal Millennium</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Montserrat', sans-serif; background: #f5f0e8; padding: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .token { background: #fff; border-radius: 8px; overflow: hidden; }
+  .token-swatch { height: 48px; }
+  .token-info { padding: 8px 10px; }
+  .token-var { font-size: 9px; font-family: monospace; color: #9e8668; margin-bottom: 3px; }
+  .token-name { font-size: 11px; font-weight: 700; color: #2a2420; }
+  .token-hex { font-size: 10px; color: #7a6e68; font-family: monospace; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #9e8668; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+  <div class="section-label" style="margin-bottom:10px">Semantic Tokens</div>
+  <div class="grid">
+    <div class="token"><div class="token-swatch" style="background:#3a3530"></div><div class="token-info"><div class="token-var">--bg-dark</div><div class="token-name">BG Dark</div><div class="token-hex">#3a3530</div></div></div>
+    <div class="token"><div class="token-swatch" style="background:#f5f0e8; border-bottom:1px solid #ddd0be"></div><div class="token-info"><div class="token-var">--bg-light</div><div class="token-name">BG Light</div><div class="token-hex">#f5f0e8</div></div></div>
+    <div class="token"><div class="token-swatch" style="background:#c8b89a"></div><div class="token-info"><div class="token-var">--bg-warm-mid</div><div class="token-name">BG Warm Mid</div><div class="token-hex">#c8b89a</div></div></div>
+    <div class="token"><div class="token-swatch" style="background:#ffffff; border-bottom:1px solid #ddd0be"></div><div class="token-info"><div class="token-var">--bg-card</div><div class="token-name">BG Card</div><div class="token-hex">#ffffff</div></div></div>
+    <div class="token"><div class="token-swatch" style="background:#c9a84c"></div><div class="token-info"><div class="token-var">--accent-primary</div><div class="token-name">Accent Primary</div><div class="token-hex">#c9a84c</div></div></div>
+    <div class="token"><div class="token-swatch" style="background:#b08c30"></div><div class="token-info"><div class="token-var">--accent-hover</div><div class="token-name">Accent Hover</div><div class="token-hex">#b08c30</div></div></div>
+    <div class="token"><div class="token-swatch" style="background:#f8f0d8; border-bottom:1px solid #ddd0be"></div><div class="token-info"><div class="token-var">--accent-subtle</div><div class="token-name">Accent Subtle</div><div class="token-hex">#f8f0d8</div></div></div>
+    <div class="token"><div class="token-swatch" style="background:#ddd0be"></div><div class="token-info"><div class="token-var">--border-light</div><div class="token-name">Border Light</div><div class="token-hex">#ddd0be</div></div></div>
+  </div>
+</body>
+</html>

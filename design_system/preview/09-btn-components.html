@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Buttons — Royal Millennium</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Montserrat', sans-serif; background: #f5f0e8; padding: 24px; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #9e8668; margin-bottom: 12px; }
+  .divider { height: 1px; background: #ddd0be; margin: 16px 0; }
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  /* Base btn */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px; border-radius: 8px;
+    font-family: 'Montserrat', sans-serif; font-size: 13px;
+    font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    cursor: pointer; border: 2px solid transparent; text-decoration: none;
+  }
+  .btn-primary { background: #c9a84c; color: #1e1a17; border-color: #c9a84c; }
+  .btn-outline  { background: transparent; color: #c9a84c; border-color: #c9a84c; }
+  .btn-dark     { background: #3a3530; color: #ffffff; border-color: #3a3530; }
+  .btn-ghost    { background: transparent; color: #3a3530; border-color: rgba(58,53,48,0.4); }
+  .btn-sm { padding: 10px 20px; font-size: 11px; }
+  .btn-lg { padding: 18px 44px; font-size: 15px; }
+  /* On dark bg */
+  .dark-panel { background: #3a3530; border-radius: 10px; padding: 20px; }
+  .btn-ghost-light { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+  .btn-outline-gold { background: transparent; color: #c9a84c; border-color: #c9a84c; }
+  .btn-icon { padding: 14px 20px; }
+  .state-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: #9e8668; margin-top: 4px; text-align: center; }
+  .btn-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+</style>
+</head>
+<body>
+  <div class="section-label">Primary Button — Sizes</div>
+  <div class="row" style="margin-bottom:4px">
+    <div class="btn-col"><div class="btn btn-primary btn-sm">Enquire Now</div><div class="state-label">Small</div></div>
+    <div class="btn-col"><div class="btn btn-primary">Enquire Now</div><div class="state-label">Default</div></div>
+    <div class="btn-col"><div class="btn btn-primary btn-lg">Enquire Now</div><div class="state-label">Large</div></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-label">Variants — Default Size</div>
+  <div class="row">
+    <div class="btn-col"><div class="btn btn-primary">Book a Visit</div><div class="state-label">Primary</div></div>
+    <div class="btn-col"><div class="btn btn-outline">Learn More</div><div class="state-label">Outline</div></div>
+    <div class="btn-col"><div class="btn btn-dark">Contact Us</div><div class="state-label">Dark</div></div>
+    <div class="btn-col"><div class="btn btn-ghost">Download Brochure</div><div class="state-label">Ghost</div></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-label">On Dark Background</div>
+  <div class="dark-panel">
+    <div class="row">
+      <div class="btn-col"><div class="btn btn-primary">Book a Visit</div><div class="state-label" style="color:#7a6e68">Primary</div></div>
+      <div class="btn-col"><div class="btn btn-outline-gold">Learn More</div><div class="state-label" style="color:#7a6e68">Outline Gold</div></div>
+      <div class="btn-col"><div class="btn btn-ghost-light">Download Brochure</div><div class="state-label" style="color:#7a6e68">Ghost Light</div></div>
+    </div>
+  </div>
+</body>
+</html>

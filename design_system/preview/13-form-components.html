@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Form Components — Royal Millennium</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Montserrat', sans-serif; background: #f5f0e8; padding: 24px; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #9e8668; margin-bottom: 10px; }
+  .divider { height: 1px; background: #ddd0be; margin: 14px 0; }
+  .form-group { margin-bottom: 14px; }
+  .form-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #5c5148; margin-bottom: 6px; }
+  .form-input {
+    display: block; width: 100%; padding: 12px 16px;
+    background: #fff; border: 1.5px solid #ddd0be;
+    border-radius: 8px; font-family: 'Montserrat', sans-serif;
+    font-size: 14px; color: #2a2420;
+    outline: none; transition: border-color 200ms;
+  }
+  .form-input:focus { border-color: #c9a84c; box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
+  .form-input::placeholder { color: #b8a082; }
+  .form-input-error { border-color: #c0392b; }
+  .form-error-msg { font-size: 11px; color: #c0392b; margin-top: 4px; }
+  .form-select {
+    display: block; width: 100%; padding: 12px 16px;
+    background: #fff; border: 1.5px solid #ddd0be;
+    border-radius: 8px; font-family: 'Montserrat', sans-serif;
+    font-size: 14px; color: #2a2420; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center;
+    outline: none;
+  }
+  .form-textarea {
+    display: block; width: 100%; padding: 12px 16px;
+    background: #fff; border: 1.5px solid #ddd0be;
+    border-radius: 8px; font-family: 'Montserrat', sans-serif;
+    font-size: 14px; color: #2a2420; resize: vertical; min-height: 80px;
+    outline: none;
+  }
+  .form-hint { font-size: 11px; color: #9e8668; margin-top: 4px; }
+  .btn-submit {
+    width: 100%; padding: 14px; background: #c9a84c; color: #1e1a17;
+    border: none; border-radius: 8px; font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; cursor: pointer;
+  }
+  .col2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+</style>
+</head>
+<body>
+  <div class="section-label">Contact / Enquiry Form</div>
+  <div class="col2">
+    <div class="form-group">
+      <label class="form-label">Full Name</label>
+      <input class="form-input" type="text" placeholder="Your full name">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Phone Number</label>
+      <input class="form-input" type="tel" placeholder="+91 00000 00000">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Email Address</label>
+    <input class="form-input form-input-error" type="email" value="bad@email">
+    <div class="form-error-msg">Please enter a valid email address.</div>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Interested In</label>
+    <select class="form-select">
+      <option>Select space type</option>
+      <option>Premium Retail Showroom</option>
+      <option>Executive Shop</option>
+      <option>Spacious Office</option>
+      <option>Work Unit (Start-up)</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Message</label>
+    <textarea class="form-textarea" placeholder="Tell us about your requirements..."></textarea>
+    <div class="form-hint">We'll get back to you within 24 hours.</div>
+  </div>
+  <button class="btn-submit">Send Enquiry</button>
+</body>
+</html>

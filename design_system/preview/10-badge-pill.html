@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Badges & Pills — Royal Millennium</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Montserrat', sans-serif; background: #f5f0e8; padding: 24px; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #9e8668; margin-bottom: 12px; }
+  .divider { height: 1px; background: #ddd0be; margin: 14px 0; }
+  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .pill {
+    display: inline-flex; align-items: center;
+    padding: 6px 18px; border-radius: 999px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .pill-gold     { background: #c9a84c; color: #1e1a17; }
+  .pill-sand     { background: #c8b89a; color: #2a2420; }
+  .pill-dark     { background: #3a3530; color: #ffffff; }
+  .pill-outline  { background: transparent; border: 1.5px solid #c9a84c; color: #c9a84c; }
+  .pill-subtle   { background: #f8f0d8; color: #8c6e20; border: 1px solid #d9be6e; }
+  .pill-sm { padding: 4px 12px; font-size: 9px; }
+  .pill-lg { padding: 9px 24px; font-size: 13px; }
+  /* Hashtag style */
+  .hashtag { background: #c8b89a; color: #2a2420; border-radius: 999px; padding: 6px 16px; font-size: 12px; font-weight: 700; }
+  .dark-panel { background: #3a3530; border-radius: 10px; padding: 16px 20px; }
+</style>
+</head>
+<body>
+  <div class="section-label">Pill Variants</div>
+  <div class="row" style="margin-bottom: 4px">
+    <span class="pill pill-gold">Luxury</span>
+    <span class="pill pill-sand">Landmark</span>
+    <span class="pill pill-dark">Freehold</span>
+    <span class="pill pill-outline">Premium</span>
+    <span class="pill pill-subtle">New Launch</span>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-label">Brand Hashtags (from materials)</div>
+  <div class="row">
+    <span class="hashtag">#LANDMARK</span>
+    <span class="hashtag">#LUXURY</span>
+    <span class="hashtag">#ROYALITY</span>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-label">Sizes</div>
+  <div class="row">
+    <span class="pill pill-gold pill-sm">Small</span>
+    <span class="pill pill-gold">Default</span>
+    <span class="pill pill-gold pill-lg">Large</span>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-label">On Dark</div>
+  <div class="dark-panel">
+    <div class="row">
+      <span class="pill pill-gold">Luxury</span>
+      <span class="pill" style="background:transparent; border:1.5px solid #c9a84c; color:#c9a84c;">Premium</span>
+      <span class="pill" style="background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.2)">Freehold</span>
+    </div>
+  </div>
+</body>
+</html>
