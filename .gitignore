@@ -53,7 +53,6 @@ coverage/
 .nyc_output/
 
 # Large files and media
-*.mp4
 *.mov
 *.avi
 *.pdf
