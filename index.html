@@ -945,18 +945,21 @@
       <!-- Form -->
       <div class="rv d2">
         <form onsubmit="bHandleSubmit(event)" class="b-form-box" style="border:1px solid #D8D4C8; background:#FAFAF6; padding:32px 28px;">
+          <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+          <input type="hidden" name="subject" value="New Enquiry — Royal Millennium" />
+          <input type="hidden" name="from_name" value="Royal Millennium Website" />
           <div style="display:flex; flex-direction:column; gap:24px;">
             <div>
               <label style="font-family:'DM Sans',sans-serif; font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:#B8B5AB; display:block; margin-bottom:8px;">Your Name</label>
-              <input type="text" class="b-inp" placeholder="Enter your full name" required />
+              <input type="text" name="name" class="b-inp" placeholder="Enter your full name" required />
             </div>
             <div>
               <label style="font-family:'DM Sans',sans-serif; font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:#B8B5AB; display:block; margin-bottom:8px;">Phone Number</label>
-              <input type="tel" class="b-inp" placeholder="+91 XXXXX XXXXX" required />
+              <input type="tel" name="phone" class="b-inp" placeholder="+91 XXXXX XXXXX" required />
             </div>
             <div>
               <label style="font-family:'DM Sans',sans-serif; font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:#B8B5AB; display:block; margin-bottom:8px;">Interested In</label>
-              <select class="b-inp" style="cursor:pointer; background:#FAFAF6;">
+              <select name="interest" class="b-inp" style="cursor:pointer; background:#FAFAF6;">
                 <option value="">Select unit type</option>
                 <option value="showroom">Premium Retail Showroom</option>
                 <option value="shop">Executive Shop</option>
@@ -967,7 +970,7 @@
             </div>
             <div>
               <label style="font-family:'DM Sans',sans-serif; font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:#B8B5AB; display:block; margin-bottom:8px;">Message (Optional)</label>
-              <textarea class="b-inp" rows="3" placeholder="Any specific requirements..." style="resize:none;"></textarea>
+              <textarea name="message" class="b-inp" rows="3" placeholder="Any specific requirements..." style="resize:none;"></textarea>
             </div>
             <button type="submit"
               style="display:flex; align-items:center; justify-content:center; gap:10px; width:100%;
@@ -1104,16 +1107,34 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') bCloseLb(); });
 
   // Form
-  function bHandleSubmit(e) {
+  async function bHandleSubmit(e) {
     e.preventDefault();
     const btn = e.target.querySelector('button[type=submit]');
+    const okMsg = document.getElementById('b-form-ok');
+    const btnHTML = btn.innerHTML;
     btn.textContent = 'Sending…'; btn.disabled = true;
-    setTimeout(() => {
-      document.getElementById('b-form-ok').style.display = 'block';
-      e.target.reset();
-      btn.innerHTML = 'Send Enquiry <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-      btn.disabled = false;
-    }, 1200);
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: new FormData(e.target)
+      });
+      const data = await res.json();
+      if (data.success) {
+        okMsg.textContent = 'Thank you! We'll be in touch shortly.';
+        okMsg.style.color = '#B8966A';
+        okMsg.style.display = 'block';
+        e.target.reset();
+      } else {
+        okMsg.textContent = 'Something went wrong. Please try again.';
+        okMsg.style.color = '#c0392b';
+        okMsg.style.display = 'block';
+      }
+    } catch {
+      okMsg.textContent = 'Network error. Please try again.';
+      okMsg.style.color = '#c0392b';
+      okMsg.style.display = 'block';
+    }
+    btn.innerHTML = btnHTML; btn.disabled = false;
   }
 </script>
 
