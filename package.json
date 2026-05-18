@@ -14,5 +14,8 @@
     "canvas": "^3.2.3",
     "pdfjs-dist": "^5.7.284",
     "puppeteer": "^24.42.0"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
   }
 }
