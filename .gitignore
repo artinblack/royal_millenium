@@ -59,3 +59,4 @@ coverage/
 
 # Project specific
 proj_assets/uploads/
+.vercel
